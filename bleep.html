@@ -56,19 +56,19 @@
           <h1>Spelling Bleep</h1>
 
       <div class="displays">
-        <div id="displayFeedback" class="display-feedback"></div>
+        <div id="feedbackDisplay" class="feedback-display"></div>
         <div class="display-input-wrapper">
-          <h2 id="displayInput" class="display-input">FEEDBACK</h2>
+          <h2 id="inputDisplay" class="input-display" data-value="">FEEDBACK</h2>
         </div>
       </div>
-      <div class="letters grid">
-        <button id="gridItem1" class="letter grid-item">b</button>
-        <button id="gridItem2" class="letter grid-item">c</button>
-        <button id="gridItem3" class="letter grid-item">d</button>
-        <button id="centerLetter gridItem0" class="letter center-letter grid-item">a</button>
-        <button id="gridItem4" class="letter grid-item">e</button>
-        <button id="gridItem5" class="letter grid-item">f</button>
-        <button id="gridItem6" class="letter grid-item">k</button>
+      <div class="letters-wrapper grid">
+        <button class="letter grid-item" data-value="b" data-idx="0">b</button>
+        <button class="letter grid-item" data-value="c" data-idx="1">c</button>
+        <button class="letter grid-item" data-value="d" data-idx="2">d</button>
+        <button id="centerLetter" class="letter center-letter grid-item" data-value="a">a</button>
+        <button class="letter grid-item" data-value="e" data-idx ="3">e</button>
+        <button class="letter grid-item" data-value="f" data-idx ="4">f</button>
+        <button class="letter grid-item" data-value="k" data-idx ="5">k</button>
       </div>
       <div class="control-panel">
         <button id="deleteBtn" class="delete-btn btn">&#10005;</button>
