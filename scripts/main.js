@@ -12,6 +12,8 @@ const puzMe = document.querySelector('#puzMe')
 const centerLetter = document.querySelector('#centerLetter')
 const wordList = document.querySelector('#wordList')
 const wordlistTally = document.querySelector('#wordlistTally')
+const playerRank = document.querySelector('#playerRank')
+const playerScore = document.querySelector('#playerScore')
 /* ----------------  
 ... PUZ STATE 
 ------------------*/
@@ -231,6 +233,7 @@ const validateWord = (e) => {
     // calcScore()
     // giveFeedback()
   }
+  calcWordScore()
   updateWordlist(e)
 }
 
@@ -270,16 +273,57 @@ const updateWordlist = (e) => {
 ... SCORING + RANKINGS
 ------------------*/
 
-const calcMaxScore = () => {}
+const calcMaxScore = () => {} // ice-box
 
 const calcRankings = () => {}
 
-const calcScore = () => {
+const calcWordScore = () => {
+  let charLength = puz.input.length
+
+  if (isPangram() === true) {
+    puz.score += 7
+  }
+
+  if (isBleep() === true) {
+    puz.score += 10
+  }
+
+  if (charLength < 3) {
+    puz.score += 0
+  } else if (charLength === 4) {
+    puz.score += 1
+  } else if (charLength > 4) {
+    puz.score += charLength * 1
+  }
+
   displayScore()
   updateRank()
 } // switch statement
 
 const updateRank = () => {
+  let num = 100
+  if (puz.score === 0) {
+    puz.rank = 'Beginner'
+  }
+  if (puz.score < Math.floor(num * 0.02)) {
+    puz.rank = 'Good start'
+  } else if (puz.score < Math.floor(num * 0.05)) {
+    puz.rank = 'Moving up'
+  } else if (puz.score < Math.floor(num * 0.08)) {
+    puz.rank = 'Good'
+  } else if (puz.score < Math.floor(num * 0.15)) {
+    puz.rank = 'Solid'
+  } else if (puz.score < Math.floor(num * 0.33)) {
+    puz.rank = 'Nice'
+  } else if (puz.score < Math.floor(num * 0.4)) {
+    puz.rank = 'Great'
+  } else if (puz.score <= Math.floor(num * 0.5)) {
+    puz.rank = 'Amazing'
+  } else if (puz.score > Math.floor(num * 0.7)) {
+    puz.rank = 'Genius'
+  }
+
+  console.log(puz.rank)
   displayRank()
 }
 
@@ -316,9 +360,15 @@ const displayWordlist = (e) => {
   updateInput(e)
 }
 
-const displayRank = () => {}
+const displayRank = () => {
+  playerRank.innerText = `${puz.rank}`
+}
 
-const displayScore = () => {}
+const displayScore = () => {
+  playerScore.value = puz.score
+  playerScore.innerText = playerScore.value
+  console.log(puz.score)
+}
 
 /* ----------------  
 ... EVENT LISTENERS 
