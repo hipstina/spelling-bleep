@@ -56,15 +56,16 @@ const calcCenter = () => {
   snipCenter(index)
 } // calculate center letter of the puz; update puz state
 
-const newPuzzle = () => {
+const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
   puz.init.set = [...newPuz]
   calcCenter()
+  clearWordlist(e)
 } // fetch a random element from helpers `combo` variable. assign each character to a letter.value
 
 const updateInput = (e) => {
   if (e.target.dataset.value !== '') {
-    puz.input += e.target.dataset.value
+    puz.input += e.target.dataset.value.toLowerCase()
     displayInput()
   } else {
     puz.input = ''
@@ -101,7 +102,7 @@ const shuffleOrder = () => {
 } // get the puz.init.set array and return a new randomized order array using Fisher-Yates shuffle; update puz state
 
 const updateCenter = (c) => {
-  puz.init.center = `${c}`
+  puz.init.center = `${c.toLowerCase()}`
   displayCenter()
 }
 
@@ -166,10 +167,27 @@ const validateInput = (e) => {
   // console.log(e.target)
 }
 
+const clearWordlist = (e) => {
+  puz.wordlist = []
+  try {
+    while (wordList.firstChild) {
+      wordList.removeChild(wordList.firstChild)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  updateWordTally()
+}
+
+const updateWordTally = () => {
+  wordlistTally.dataset.value = puz.wordlist.length
+  displayTally()
+}
+
 const updateWordlist = (e) => {
   puz.wordlist.push(puz.input)
-  wordlistTally.dataset.value = puz.wordlist.length
   displayWordlist(e)
+  updateWordTally()
 }
 
 /* ----------------  
@@ -182,7 +200,7 @@ const displayCenter = () => {
 
 const displayLetters = () => {
   letters.forEach((letter) => {
-    letter.innerText = letter.dataset.value
+    letter.innerText = letter.dataset.value.toUpperCase()
   })
 } // whenever letter.value is updated, set letter.innerText to equal letter.value
 
@@ -191,13 +209,18 @@ const displayInput = () => {
   inputDisplay.innerText = inputDisplay.dataset.value.toUpperCase()
 } // whenever its displayInput.value is changed update the innerText of displayInput to equal displayInput.value
 
+const displayTally = () => {
+  if (wordlistTally.dataset.value == 1) {
+    wordlistTally.innerText = `${wordlistTally.dataset.value} word`
+  } else wordlistTally.innerText = `${wordlistTally.dataset.value} words`
+}
+
 const displayWordlist = (e) => {
   let li = document.createElement('li')
   li.setAttribute = ('class', 'wordlist-item')
   li.innerText = puz.input
   wordList.appendChild(li)
   updateInput(e)
-  wordlistTally.innerText = wordlistTally.dataset.value
 }
 /* ----------------  
 ... EVENT LISTENERS 
