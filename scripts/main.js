@@ -67,7 +67,6 @@ const isPangram = () => {
   ;[...puz.input].map((l) => {
     return set[l] ? set[l]++ : (set[l] = 1)
   })
-  console.log('1', set)
 
   let pangram = Object.values(set).every((char) => {
     return char > 0
@@ -80,9 +79,19 @@ const isPangram = () => {
 }
 // calculate all possible pangrams; update puz state
 // each char of puz.init.set must exist in the word at least once
-
 const updatePangram = () => {
-  puz.pangrams.push(puz.input)
+  return puz.pangrams.push(puz.input)
+}
+
+const isBleep = () => {
+  if (bleeps.indexOf(puz.input) !== -1) {
+    updateBleeps()
+    return true
+  }
+}
+
+const updateBleeps = () => {
+  return puz.bleeps.push(puz.input)
 }
 
 const calcBleeps = () => {} // calculate all possible bleep words; update puz state
@@ -106,8 +115,10 @@ const calcCenter = () => {
     calcCenter()
   }
   // calcWords()
-  else updateCenter(center)
-  snipCenter(index)
+  else {
+    updateCenter(center)
+    snipCenter(index)
+  }
 } // calculate center letter of the puz; update puz state
 
 const newPuzzle = (e) => {
@@ -180,31 +191,7 @@ const validateInput = (e) => {
       console.log('4 or more letters')
       if (puz.wordlist.includes(puz.input) === false) {
         console.log('not already found')
-        if (words.indexOf(puz.input) !== -1) {
-          console.log('verified word.')
-
-          if (isPangram() === true) {
-            console.log("it's a pangram!")
-            if (puz.bleeps.indexOf(puz.input) !== -1) {
-              updateWordlist(e)
-              // giveFeedback()
-              // calcScore()
-            } else {
-              console.log('not a bleep ')
-              updateWordlist(e)
-              // calcScore()
-              // giveFeedback()
-            }
-          } else {
-            console.log('not a pangram ')
-            updateWordlist(e)
-            // calcScore()
-            // giveFeedback()
-          }
-        } else {
-          console.log('not a word in our wordlist ')
-          updateInput(e)
-        }
+        validateWord(e)
       } else {
         console.log('already found')
         updateInput(e)
@@ -219,6 +206,33 @@ const validateInput = (e) => {
   }
 }
 
+const validateWord = (e) => {
+  if (words.indexOf(puz.input) !== -1) {
+    console.log('verified word.')
+  } else {
+    console.log('not a word in our wordlist ')
+  }
+
+  if (isPangram() === true) {
+    console.log("it's a pangram!")
+  } else {
+    console.log('not a pangram ')
+    // calcScore()
+    // giveFeedback()
+  }
+
+  if (isBleep() === true) {
+    console.log("that's a bleep!")
+    // giveFeedback()
+    // calcScore()
+  } else {
+    console.log('not a bleep ')
+    // calcScore()
+    // giveFeedback()
+  }
+  updateWordlist(e)
+}
+
 const giveFeedback = () => {}
 
 /* ----------------  
@@ -226,6 +240,8 @@ const giveFeedback = () => {}
 ------------------*/
 
 const clearWordlist = (e) => {
+  puz.bleeps = []
+  puz.pangrams = []
   puz.wordlist = []
   try {
     while (wordList.firstChild) {
