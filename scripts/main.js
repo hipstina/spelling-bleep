@@ -27,6 +27,7 @@ const puz = {
   input: '',
   score: 0,
   rank: 'Beginner',
+  feedback: '',
   wordlist: [], // all words including pangrams & bleeps
   pangrams: [], // idx of each pangram in the mainWordList
   bleeps: [] // idx of each bleep word in the mainWordList,
@@ -46,20 +47,7 @@ const validatePuz = () => {} // verify puz.init state meets conditions for gamep
 
 //   calcPangrams()
 //   calcBleeps()
-// } // calculate all possible words; then invoke
-
-// const countChars = () => {
-//   let set = {}
-//   puz.init.set.map((letter) => {
-//     return set[letter] ? null : (set[letter] = 0)
-//   })
-//   ;[...puz.input].map((l) => {
-//     return set[l] ? set[l]++ : (set[l] = 1)
-//   })
-//   console.log('1', set)
-
-//   return set
-// }
+// } // calculate all possible words
 
 const isPangram = () => {
   let set = {}
@@ -128,6 +116,7 @@ const newPuzzle = (e) => {
   puz.init.set = [...newPuz]
   calcCenter()
   clearWordlist(e)
+  resetScore()
 } // fetch a random element from helpers `combo` variable. assign each character to a letter.value
 
 const snipCenter = (centerIdx) => {
@@ -146,6 +135,11 @@ const updateInput = (e) => {
     displayInput()
   }
 } // when a letter button is clicked, append the letter.value to puz.input; then set displayInput.value equal to puz.input
+
+const clearInput = () => {
+  puz.input = ''
+  displayInput()
+}
 
 const updateCenter = (c) => {
   puz.init.center = `${c.toLowerCase()}`
@@ -196,15 +190,23 @@ const validateInput = (e) => {
         validateWord(e)
       } else {
         console.log('already found')
-        updateInput(e)
+        updateFeedback('already found')
+        // updateInput(e)
+        clearInput()
+        return
       }
     } else {
       console.log('too short')
-      updateInput(e)
+      updateFeedback('too short')
+      clearInput()
+      return
     }
   } else {
-    console.log('no center letter')
-    updateInput(e)
+    console.log('missing center letter')
+    // updateInput(e)
+    updateFeedback('missing center letter')
+    clearInput()
+    return
   }
 }
 
@@ -213,31 +215,45 @@ const validateWord = (e) => {
   if (allWords.indexOf(puz.input) !== -1) {
     console.log('verified word.')
   } else {
-    console.log('not a word in our wordlist ')
+    console.log('not a word in our wordlist')
+    updateFeedback('not a word in our wordlist')
+    clearInput()
+    return
   }
 
   if (isPangram() === true) {
     console.log("it's a pangram!")
+    calcBonusScore(7)
+    updateFeedback(`pangram! +${puz.input.length + 7} pts`)
+    // calcWordScore()
+    updateWordlist(e)
   } else {
     console.log('not a pangram ')
+
     // calcScore()
-    // giveFeedback()
   }
 
   if (isBleep() === true) {
     console.log("that's a bleep!")
-    // giveFeedback()
+    calcBonusScore(10)
+    updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
+
     // calcScore()
   } else {
     console.log('not a bleep ')
     // calcScore()
     // giveFeedback()
   }
+
   calcWordScore()
   updateWordlist(e)
 }
 
-const giveFeedback = () => {}
+const updateFeedback = (str) => {
+  //switch statement
+  puz.feedback = str
+  displayFeedback()
+}
 
 /* ----------------  
 ... WORDLIST 
@@ -264,41 +280,53 @@ const updateWordTally = () => {
 
 const updateWordlist = (e) => {
   // sort in alpha order; iterate through to find idx to splice into
-  puz.wordlist.push(puz.input)
-  displayWordlist(e)
-  updateWordTally()
+  if (puz.input !== '') {
+    puz.wordlist.push(puz.input)
+    displayWordlist(e)
+    updateWordTally()
+  }
 }
 
 /* ----------------  
 ... SCORING + RANKINGS
 ------------------*/
+const resetScore = () => {
+  puz.score = 0
+  puz.rank = 'Beginner'
+}
 
 const calcMaxScore = () => {} // ice-box
 
-const calcRankings = () => {}
+const calcRankings = () => {} // ice-box
 
 const calcWordScore = () => {
   let charLength = puz.input.length
-
-  if (isPangram() === true) {
-    puz.score += 7
-  }
-
-  if (isBleep() === true) {
-    puz.score += 10
-  }
 
   if (charLength < 3) {
     puz.score += 0
   } else if (charLength === 4) {
     puz.score += 1
+    updateFeedback(`nice! +1 pts`)
   } else if (charLength > 4) {
     puz.score += charLength * 1
+    updateFeedback(`great! +${charLength} pts`)
   }
 
-  displayScore()
-  updateRank()
-} // switch statement
+  {
+    displayScore()
+    updateRank()
+  }
+}
+
+const calcBonusScore = (bonus = 0) => {
+  if (bonus === 10) {
+    console.log('BLEEP BONUS')
+  } else if (bonus === 7) {
+    console.log('PANGRAM BONUS')
+  } else if (bonus === 0) {
+    console.log('NO BONUS')
+  }
+}
 
 const updateRank = () => {
   let num = 100
@@ -368,6 +396,17 @@ const displayScore = () => {
   playerScore.value = puz.score
   playerScore.innerText = playerScore.value
   console.log(puz.score)
+}
+
+const displayFeedback = () => {
+  console.log('FEEDBACK???', `${puz.feedback}`)
+  feedbackDisplay.innerText = `${puz.feedback}`
+
+  // feedbackDisplay.className = 'fadeout'
+  feedbackDisplay.classList.toggle('fadeout')
+  setTimeout(function () {
+    feedbackDisplay.innerText = ''
+  }, 2000)
 }
 
 /* ----------------  
