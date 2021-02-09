@@ -189,7 +189,7 @@ const validateInput = (e) => {
     console.log('includes center letter')
     if (puz.input.length > 3) {
       console.log('4 or more letters')
-      if (puz.wordlist.includes(puz.input) === false) {
+      if (puz.wordlist.indexOf(puz.input) === -1) {
         console.log('not already found')
         validateWord(e)
       } else {
@@ -207,7 +207,8 @@ const validateInput = (e) => {
 }
 
 const validateWord = (e) => {
-  if (words.indexOf(puz.input) !== -1) {
+  let allWords = [...words, ...bleeps]
+  if (allWords.indexOf(puz.input) !== -1) {
     console.log('verified word.')
   } else {
     console.log('not a word in our wordlist ')
