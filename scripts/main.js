@@ -7,8 +7,11 @@ const inputDisplay = document.querySelector('#inputDisplay')
 const letters = document.querySelectorAll('.letter')
 const deleteBtn = document.querySelector('#deleteBtn')
 const shuffleBtn = document.querySelector('#shuffleBtn')
+const enterBtn = document.querySelector('#enterBtn')
 const puzMe = document.querySelector('#puzMe')
 const centerLetter = document.querySelector('#centerLetter')
+const wordList = document.querySelector('#wordList')
+const wordlistTally = document.querySelector('#wordlistTally')
 /* ----------------  
 ... PUZ STATE 
 ------------------*/
@@ -22,7 +25,10 @@ const puz = {
   input: '',
   enter: false,
   pangrams: [], // idx of each pangram in the mainWordList
-  bleeps: [] // idx of each bleep word in the mainWordList
+  bleeps: [], // idx of each bleep word in the mainWordList,
+  score: 0,
+  rank: 'Beginner',
+  wordlist: []
 }
 
 /* ----------------  
@@ -57,8 +63,13 @@ const newPuzzle = () => {
 } // fetch a random element from helpers `combo` variable. assign each character to a letter.value
 
 const updateInput = (e) => {
-  puz.input += e.target.dataset.value
-  displayInput()
+  if (e.target.dataset.value !== '') {
+    puz.input += e.target.dataset.value
+    displayInput()
+  } else {
+    puz.input = ''
+    displayInput()
+  }
 } // when a letter button is clicked, append the letter.value to puz.input; then set displayInput.value equal to puz.input
 
 const deleteLetter = () => {
@@ -105,6 +116,62 @@ const updateLetters = () => {
   displayLetters()
 } // whenever puz.order is updated, set letter.value equal to its respective idx value in
 
+const validateInput = (e) => {
+  if (puz.input.includes(puz.init.center)) {
+    console.log('includes center letter')
+    if (puz.input.length > 3) {
+      console.log('4 or more letters')
+      if (puz.wordlist.includes(puz.input) === false) {
+        console.log('not already found')
+        if (words.indexOf(puz.input) !== -1) {
+          console.log('verified word.')
+          if (puz.pangrams.indexOf(puz.input) !== -1) {
+            if (puz.bleeps.indexOf(puz.input) !== -1) {
+              updateWordlist(e)
+              // giveFeedback()
+              // calcScore()
+            } else {
+              console.log('not a bleep ')
+              updateWordlist(e)
+              // calcScore()
+              // giveFeedback()
+            }
+          } else {
+            console.log('not a pangram ')
+            updateWordlist(e)
+            // calcScore()
+            // giveFeedback()
+          }
+        } else {
+          console.log('not a word in our wordlist ')
+          updateInput(e)
+        }
+      } else {
+        console.log('already found')
+        updateInput(e)
+      }
+    } else {
+      console.log('too short')
+      updateInput(e)
+    }
+  } else {
+    console.log('no center letter')
+    updateInput(e)
+  }
+
+  // updateWordlist()
+  // giveFeedback()
+  // calcScore()
+  // updateInput(e)
+  // console.log(e.target)
+}
+
+const updateWordlist = (e) => {
+  puz.wordlist.push(puz.input)
+  wordlistTally.dataset.value = puz.wordlist.length
+  displayWordlist(e)
+}
+
 /* ----------------  
 ... UI 
 ------------------*/
@@ -124,11 +191,20 @@ const displayInput = () => {
   inputDisplay.innerText = inputDisplay.dataset.value.toUpperCase()
 } // whenever its displayInput.value is changed update the innerText of displayInput to equal displayInput.value
 
+const displayWordlist = (e) => {
+  let li = document.createElement('li')
+  li.setAttribute = ('class', 'wordlist-item')
+  li.innerText = puz.input
+  wordList.appendChild(li)
+  updateInput(e)
+  wordlistTally.innerText = wordlistTally.dataset.value
+}
 /* ----------------  
 ... EVENT LISTENERS 
 ------------------*/
 
 letters.forEach((letter) => letter.addEventListener('click', updateInput))
 deleteBtn.addEventListener('click', deleteLetter)
-puzMe.addEventListener('click', newPuzzle)
 shuffleBtn.addEventListener('click', shuffleOrder)
+enterBtn.addEventListener('click', validateInput)
+puzMe.addEventListener('click', newPuzzle)

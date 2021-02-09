@@ -59,7 +59,7 @@
       <div class="displays">
         <div id="feedbackDisplay" class="feedback-display"></div>
         <div class="display-input-wrapper">
-          <h2 id="inputDisplay" class="input-display" data-value="">FEEDBACK</h2>
+          <h2 id="inputDisplay" class="input-display" data-value=""></h2>
         </div>
       </div>
       <div class="letters-wrapper grid">
@@ -74,7 +74,7 @@
       <div class="control-panel">
         <button id="deleteBtn" class="delete-btn btn">&#10005;</button>
         <button id="shuffleBtn" class="shuffle-btn btn">&#128256;</button>
-        <button id="enterBtn" class="enter-btn btn">&#10003;</button>
+        <button id="enterBtn" class="enter-btn btn" data-value="">&#10003;</button>
       </div>
     </section>
 
@@ -85,10 +85,9 @@
       </div>
 
       <div class="wordlist-wrapper">
-        <h2 class="wordlist-summary">You have found <span id="wordlistTally" class="wordlist-tally">2</span> words</h2>
+        <h2 class="wordlist-summary">You have found <span id="wordlistTally" class="wordlist-tally" data-value="0">0</span> words</h2>
         <ul id="wordList" class="wordlist">
-          <li class="wordlist-item">Added</li>
-          <li class="wordlist-item">Dead</li>
+        
         </ul>
       </div>
     </section>
