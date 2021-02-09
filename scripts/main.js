@@ -23,16 +23,19 @@ const puz = {
   },
   order: ['b', 'c', 'd', 'e', 'f', 'k'],
   input: '',
-  enter: false,
-  pangrams: [], // idx of each pangram in the mainWordList
-  bleeps: [], // idx of each bleep word in the mainWordList,
   score: 0,
   rank: 'Beginner',
-  wordlist: []
+  wordlist: [], // all words including pangrams & bleeps
+  pangrams: [], // idx of each pangram in the mainWordList
+  bleeps: [] // idx of each bleep word in the mainWordList,
 }
 
-/* ----------------  
+/* ----------------------------------------------  
 ... FUNCTIONS 
+------------------------------------------------*/
+
+/* ----------------  
+... PUZ SETUP 
 ------------------*/
 
 const validatePuz = () => {} // verify puz.init state meets conditions for gameplay; must return true before puz loads. Else invoke newPuz()
@@ -43,16 +46,67 @@ const validatePuz = () => {} // verify puz.init state meets conditions for gamep
 //   calcBleeps()
 // } // calculate all possible words; then invoke
 
-const calcPangrams = () => {} // calculate all possible pangrams; update puz state
+// const countChars = () => {
+//   let set = {}
+//   puz.init.set.map((letter) => {
+//     return set[letter] ? null : (set[letter] = 0)
+//   })
+//   ;[...puz.input].map((l) => {
+//     return set[l] ? set[l]++ : (set[l] = 1)
+//   })
+//   console.log('1', set)
+
+//   return set
+// }
+
+const isPangram = () => {
+  let set = {}
+  puz.init.set.map((letter) => {
+    return set[letter] ? null : (set[letter] = 0)
+  })
+  ;[...puz.input].map((l) => {
+    return set[l] ? set[l]++ : (set[l] = 1)
+  })
+  console.log('1', set)
+
+  let pangram = Object.values(set).every((char) => {
+    return char > 0
+  })
+  if (pangram === true) {
+    updatePangram()
+
+    return pangram
+  }
+}
+// calculate all possible pangrams; update puz state
+// each char of puz.init.set must exist in the word at least once
+
+const updatePangram = () => {
+  puz.pangrams.push(puz.input)
+}
 
 const calcBleeps = () => {} // calculate all possible bleep words; update puz state
 
 const calcCenter = () => {
   let index = Math.floor(Math.random() * puz.init.set.length)
   let center = puz.init.set[index]
-
+  if (
+    center === 'f' ||
+    center === 'g' ||
+    center === 'j' ||
+    center === 'k' ||
+    center === 'q' ||
+    center === 's' ||
+    center === 'v' ||
+    center === 'w' ||
+    center === 'x' ||
+    center === 'z'
+  ) {
+    // avoid setting f,g,j,k,q,s,v,w,x, or z as center letter (per nytbee.com stats)
+    calcCenter()
+  }
   // calcWords()
-  updateCenter(center)
+  else updateCenter(center)
   snipCenter(index)
 } // calculate center letter of the puz; update puz state
 
@@ -63,6 +117,13 @@ const newPuzzle = (e) => {
   clearWordlist(e)
 } // fetch a random element from helpers `combo` variable. assign each character to a letter.value
 
+const snipCenter = (centerIdx) => {
+  let arr = [...puz.init.set]
+  arr.splice(centerIdx, 1)
+  puz.order = arr
+  shuffleOrder()
+} // remove the center item from the puz.init.set array and return a new array
+
 const updateInput = (e) => {
   if (e.target.dataset.value !== '') {
     puz.input += e.target.dataset.value.toLowerCase()
@@ -72,34 +133,6 @@ const updateInput = (e) => {
     displayInput()
   }
 } // when a letter button is clicked, append the letter.value to puz.input; then set displayInput.value equal to puz.input
-
-const deleteLetter = () => {
-  let temp = [...puz.input]
-  temp.pop()
-  if (puz.input) {
-    puz.input = temp.join('')
-    displayInput()
-  }
-} // remove the last character on the displayInput.value. Use splice()
-
-const snipCenter = (centerIdx) => {
-  let arr = [...puz.init.set]
-  arr.splice(centerIdx, 1)
-  puz.order = arr
-
-  shuffleOrder()
-} // remove the center item from the puz.init.set array and return a new array
-
-const shuffleOrder = () => {
-  let array = puz.order
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1))
-
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  puz.order = array
-  updateLetters()
-} // get the puz.init.set array and return a new randomized order array using Fisher-Yates shuffle; update puz state
 
 const updateCenter = (c) => {
   puz.init.center = `${c.toLowerCase()}`
@@ -117,6 +150,29 @@ const updateLetters = () => {
   displayLetters()
 } // whenever puz.order is updated, set letter.value equal to its respective idx value in
 
+/* ----------------  
+... CONTROL PANEL 
+------------------*/
+const deleteLetter = () => {
+  let temp = [...puz.input]
+  temp.pop()
+  if (puz.input) {
+    puz.input = temp.join('')
+    displayInput()
+  }
+} // remove the last character on the displayInput.value. Use splice()
+
+const shuffleOrder = () => {
+  let array = puz.order
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1))
+
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+  puz.order = array
+  updateLetters()
+} // get the puz.init.set array and return a new randomized order array using Fisher-Yates shuffle; update puz state
+
 const validateInput = (e) => {
   if (puz.input.includes(puz.init.center)) {
     console.log('includes center letter')
@@ -126,7 +182,9 @@ const validateInput = (e) => {
         console.log('not already found')
         if (words.indexOf(puz.input) !== -1) {
           console.log('verified word.')
-          if (puz.pangrams.indexOf(puz.input) !== -1) {
+
+          if (isPangram() === true) {
+            console.log("it's a pangram!")
             if (puz.bleeps.indexOf(puz.input) !== -1) {
               updateWordlist(e)
               // giveFeedback()
@@ -159,13 +217,13 @@ const validateInput = (e) => {
     console.log('no center letter')
     updateInput(e)
   }
-
-  // updateWordlist()
-  // giveFeedback()
-  // calcScore()
-  // updateInput(e)
-  // console.log(e.target)
 }
+
+const giveFeedback = () => {}
+
+/* ----------------  
+... WORDLIST 
+------------------*/
 
 const clearWordlist = (e) => {
   puz.wordlist = []
@@ -185,9 +243,27 @@ const updateWordTally = () => {
 }
 
 const updateWordlist = (e) => {
+  // sort in alpha order; iterate through to find idx to splice into
   puz.wordlist.push(puz.input)
   displayWordlist(e)
   updateWordTally()
+}
+
+/* ----------------  
+... SCORING + RANKINGS
+------------------*/
+
+const calcMaxScore = () => {}
+
+const calcRankings = () => {}
+
+const calcScore = () => {
+  displayScore()
+  updateRank()
+} // switch statement
+
+const updateRank = () => {
+  displayRank()
 }
 
 /* ----------------  
@@ -222,12 +298,17 @@ const displayWordlist = (e) => {
   wordList.appendChild(li)
   updateInput(e)
 }
+
+const displayRank = () => {}
+
+const displayScore = () => {}
+
 /* ----------------  
 ... EVENT LISTENERS 
 ------------------*/
-
 letters.forEach((letter) => letter.addEventListener('click', updateInput))
 deleteBtn.addEventListener('click', deleteLetter)
 shuffleBtn.addEventListener('click', shuffleOrder)
 enterBtn.addEventListener('click', validateInput)
+
 puzMe.addEventListener('click', newPuzzle)
