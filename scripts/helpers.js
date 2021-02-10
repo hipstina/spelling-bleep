@@ -224950,6 +224950,7 @@ const bleeps = [
   'gooches',
   'handjob',
   'handjobs',
+  'hardass',
   'hell',
   'hells',
   'heroin',

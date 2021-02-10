@@ -36,9 +36,7 @@ const puz = {
   genius: false,
   smartass: false,
   feedback: '',
-  wordlist: [], // all words including pangrams & bleeps
-  pangrams: [], // idx of each pangram in the mainWordList
-  bleeps: [] // idx of each bleep word in the mainWordList,
+  wordlist: [] // player's valid words including pangrams & bleeps
 }
 
 /* ----------------------------------------------  
@@ -50,23 +48,58 @@ const puz = {
 ------------------*/
 
 const validatePuz = () => {
-  try {
-    let puzzle = calcWordlist(puz.init.set)
-    return puzzle.length > 20 ? (puz.valid = true) : (puz.valid = false)
-  } catch (error) {
-    console.log(error)
+  let puzzle = calcWordlist(puz.init.set)
+  let maxScore = calcMaxScore(puzzle)
+  let pangrams = calcAllPangrams(puzzle)
+  let bleeps = calcAllBleeps(puzzle)
+  if (puzzle.length > 20) {
+    if (pangrams >= 1) {
+      if (bleeps >= 1) {
+        puz.valid = true
+        console.log('words', puzzle.length)
+        console.log('maxscore', maxScore)
+        console.log('pangrams', pangrams)
+        console.log('bleeps', bleeps)
+      }
+    }
+  } else {
+    puz.valid = false
+    newPuzzle()
   }
 } // verify puz.init state meets conditions for gameplay; must set puz.valid = true before puz loads. Else invoke newPuz()
 
-//   calcPangrams()
-//   calcBleeps()
-// }
+const calcAllPangrams = (wordlist) => {
+  let allPangrams = []
+  wordlist.forEach((word) => {
+    if (isPangram(puz.init.set, word) === true) {
+      allPangrams.push(word)
+    }
+  })
+  // console.log('pangrams', allPangrams.length)
+  return allPangrams.length
+}
+
+const calcAllBleeps = (wordlist) => {
+  let allBleeps = []
+  wordlist.forEach((word) => {
+    if (isBleep(bleeps, word) === true) {
+      if (allBleeps.indexOf(word) === -1) {
+        allBleeps.push(word)
+      }
+    }
+  })
+  // console.log('bleeps', allBleeps.length)
+  return allBleeps.length
+}
+
+// e.g Array(7) [ "e", "h", "p", "r", "t", "a", "c" ] center letter E
 
 // calculate all possible valid words given a random letter set
 // filter arr by input validation conditions
 const calcWordlist = (charSet) => {
   let allWords = [...words, ...bleeps]
   let wordlistSet = []
+
   allWords.map((word) => {
     let isIncluded = [...word].every((letter) => {
       if (charSet.indexOf(letter) !== -1) return true
@@ -80,7 +113,7 @@ const calcWordlist = (charSet) => {
   let everyWord = wordlistSet.filter((word) => {
     return word.includes(puz.init.center) && word.length > 3 ? true : false
   })
-  calcMaxScore(everyWord)
+
   return everyWord
 }
 
@@ -97,7 +130,7 @@ const isPangram = (charSet, word) => {
     return char > 0
   })
   if (pangram === true) {
-    updatePangram()
+    // updatePangram()
 
     return pangram
   }
@@ -108,9 +141,9 @@ const updatePangram = () => {
   return puz.pangrams.push(puz.input)
 }
 
-const isBleep = () => {
-  if (bleeps.indexOf(puz.input) !== -1) {
-    updateBleeps()
+const isBleep = (charSet, word) => {
+  if (charSet.indexOf(word) !== -1) {
+    // updateBleeps()
     return true
   }
 }
@@ -276,6 +309,7 @@ const validateWord = (e) => {
     console.log("✓ that's a bleep!")
     calcBonusScore(10)
     updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
+    updateWordlist(e)
   } else {
     console.log('✕ not a bleep ')
     calcWordScore(puz.input.length)
@@ -341,8 +375,20 @@ const resetScore = () => {
 }
 
 const calcMaxScore = (wordcount) => {
-  console.log('wordcount', wordcount)
-  wordcount.reduce((word) => {}, {})
+  // console.log('wordcount', wordcount)
+  let maxScore = wordcount.reduce((score, word) => {
+    if (word.length < 3) {
+      score += 0
+    } else if (word.length === 4) {
+      score += 1
+    } else if (word.length > 4) {
+      score += word.length
+    }
+
+    return score
+  }, 0)
+  // console.log('max score', maxScore)
+  return maxScore
 } // ice-box
 
 const calcRankings = () => {} // ice-box
@@ -374,6 +420,9 @@ const calcBonusScore = (bonus) => {
   } else {
     console.log('NO BONUS')
   }
+
+  displayScore()
+  updateRank()
 }
 
 const updateRank = () => {
@@ -468,6 +517,7 @@ const displayRank = () => {
 
 const displayScore = () => {
   playerScore.value = puz.score
+  console.log(puz.score)
   playerScore.innerText = `${playerScore.value}`
 }
 
