@@ -9,6 +9,7 @@ const deleteBtn = document.querySelector('#deleteBtn')
 const shuffleBtn = document.querySelector('#shuffleBtn')
 const enterBtn = document.querySelector('#enterBtn')
 const puzMe = document.querySelector('#puzMe')
+const resetMe = document.querySelector('#resetMe')
 const centerLetter = document.querySelector('#centerLetter')
 const wordList = document.querySelector('#wordList')
 const wordlistTally = document.querySelector('#wordlistTally')
@@ -116,6 +117,12 @@ const newPuzzle = (e) => {
   clearWordlist(e)
   resetScore()
 } // fetch a random element from helpers `combo` variable. assign each character to a letter.value
+
+const resetPuz = () => {
+  puz.feedback = ''
+  clearWordlist()
+  resetScore()
+}
 
 const snipCenter = (centerIdx) => {
   let arr = [...puz.init.set]
@@ -256,7 +263,7 @@ const clearBonusWords = () => {
   puz.pangrams = []
 }
 
-const clearWordlist = (e) => {
+const clearWordlist = () => {
   puz.wordlist = []
   try {
     while (wordList.firstChild) {
@@ -437,3 +444,4 @@ shuffleBtn.addEventListener('click', shuffleOrder)
 enterBtn.addEventListener('click', validateInput)
 
 puzMe.addEventListener('click', newPuzzle)
+resetMe.addEventListener('click', resetPuz)
