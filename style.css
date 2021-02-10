@@ -1,13 +1,17 @@
+.display-input-wrapper {
+  /* height: 80%; */
+}
 .input-display {
-  height: 100px;
+  /* height: 100%; */
   font-size: 60px;
 }
+
 .feedback-display {
-  height: 100px;
+  /* height: 20%; */
 }
 
 .center-letter {
-  /* background-color: #373820; */
+  color: #757743;
   background-color: #e7eb64;
 }
 
@@ -20,8 +24,25 @@ progress {
   height: 30px;
 }
 
+.displays {
+  position: relative;
+  height: 15vh;
+}
+
 .fadeout {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s 2s, opacity 2s linear;
+  transition: visibility 0s 1.5s, opacity 1.5s linear;
+  position: absolute;
+  top: 0;
+  animation: blip 1.5s cubic-bezier(0.075, 0.82, 0.99, 0.75);
+}
+@keyframes blip {
+  0% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1.05);
+  }
 }

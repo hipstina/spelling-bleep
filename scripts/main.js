@@ -103,9 +103,7 @@ const calcCenter = () => {
   ) {
     // avoid setting f,g,j,k,q,s,v,w,x, or z as center letter (per nytbee.com stats)
     calcCenter()
-  }
-  // calcWords()
-  else {
+  } else {
     updateCenter(center)
     snipCenter(index)
   }
@@ -137,8 +135,12 @@ const updateInput = (e) => {
 } // when a letter button is clicked, append the letter.value to puz.input; then set displayInput.value equal to puz.input
 
 const clearInput = () => {
-  puz.input = ''
-  displayInput()
+  inputDisplay.classList.add('fadeout')
+  setTimeout(function () {
+    puz.input = ''
+    displayInput()
+    inputDisplay.classList.remove('fadeout')
+  }, 1000)
 }
 
 const updateCenter = (c) => {
@@ -191,7 +193,6 @@ const validateInput = (e) => {
       } else {
         console.log('already found')
         updateFeedback('already found')
-        // updateInput(e)
         clearInput()
         return
       }
@@ -203,7 +204,6 @@ const validateInput = (e) => {
     }
   } else {
     console.log('missing center letter')
-    // updateInput(e)
     updateFeedback('missing center letter')
     clearInput()
     return
@@ -225,28 +225,20 @@ const validateWord = (e) => {
     console.log("it's a pangram!")
     calcBonusScore(7)
     updateFeedback(`pangram! +${puz.input.length + 7} pts`)
-    // calcWordScore()
     updateWordlist(e)
   } else {
     console.log('not a pangram ')
-
-    // calcScore()
   }
 
   if (isBleep() === true) {
     console.log("that's a bleep!")
     calcBonusScore(10)
     updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
-
-    // calcScore()
   } else {
     console.log('not a bleep ')
-    // calcScore()
-    // giveFeedback()
+    calcWordScore()
+    updateWordlist(e)
   }
-
-  calcWordScore()
-  updateWordlist(e)
 }
 
 const updateFeedback = (str) => {
@@ -293,6 +285,7 @@ const updateWordlist = (e) => {
 const resetScore = () => {
   puz.score = 0
   puz.rank = 'Beginner'
+  displayScore()
 }
 
 const calcMaxScore = () => {} // ice-box
@@ -318,12 +311,14 @@ const calcWordScore = () => {
   }
 }
 
-const calcBonusScore = (bonus = 0) => {
+const calcBonusScore = (bonus) => {
   if (bonus === 10) {
     console.log('BLEEP BONUS')
+    puz.score += bonus + puz.input.length
   } else if (bonus === 7) {
     console.log('PANGRAM BONUS')
-  } else if (bonus === 0) {
+    puz.score += bonus + puz.input.length
+  } else {
     console.log('NO BONUS')
   }
 }
@@ -334,21 +329,22 @@ const updateRank = () => {
     puz.rank = 'Beginner'
   }
   if (puz.score < Math.floor(num * 0.02)) {
-    puz.rank = 'Good start'
+    puz.rank = `Good start (${puz.score})`
   } else if (puz.score < Math.floor(num * 0.05)) {
-    puz.rank = 'Moving up'
+    puz.rank = `Moving up (${puz.score})`
   } else if (puz.score < Math.floor(num * 0.08)) {
-    puz.rank = 'Good'
+    puz.rank = `Good (${puz.score})`
   } else if (puz.score < Math.floor(num * 0.15)) {
-    puz.rank = 'Solid'
+    puz.rank = `Solid (${puz.score})`
   } else if (puz.score < Math.floor(num * 0.33)) {
-    puz.rank = 'Nice'
+    puz.rank = `Nice (${puz.score})`
   } else if (puz.score < Math.floor(num * 0.4)) {
-    puz.rank = 'Great'
+    puz.rank = `Great (${puz.score})`
   } else if (puz.score <= Math.floor(num * 0.5)) {
-    puz.rank = 'Amazing'
+    puz.rank = `Amazing (${puz.score})`
   } else if (puz.score > Math.floor(num * 0.7)) {
-    puz.rank = 'Genius'
+    puz.rank = `Genius (${puz.score})`
+    alertGenius()
   }
 
   console.log(puz.rank)
@@ -358,6 +354,10 @@ const updateRank = () => {
 /* ----------------  
 ... UI 
 ------------------*/
+const alertGenius = () => {
+  alert('You reached Genius rank! What a smart ass.')
+}
+
 const displayCenter = () => {
   centerLetter.dataset.value = puz.init.center
   centerLetter.innerText = centerLetter.dataset.value
@@ -403,10 +403,11 @@ const displayFeedback = () => {
   feedbackDisplay.innerText = `${puz.feedback}`
 
   // feedbackDisplay.className = 'fadeout'
-  feedbackDisplay.classList.toggle('fadeout')
+  feedbackDisplay.classList.add('fadeout')
   setTimeout(function () {
     feedbackDisplay.innerText = ''
-  }, 2000)
+    feedbackDisplay.classList.remove('fadeout')
+  }, 2300)
 }
 
 /* ----------------  
