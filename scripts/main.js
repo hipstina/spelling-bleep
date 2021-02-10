@@ -10,11 +10,14 @@ const shuffleBtn = document.querySelector('#shuffleBtn')
 const enterBtn = document.querySelector('#enterBtn')
 const puzMe = document.querySelector('#puzMe')
 const resetMe = document.querySelector('#resetMe')
+const colorScheme = document.querySelector('#colorScheme')
 const centerLetter = document.querySelector('#centerLetter')
 const wordList = document.querySelector('#wordList')
 const wordlistTally = document.querySelector('#wordlistTally')
 const playerRank = document.querySelector('#playerRank')
 const playerScore = document.querySelector('#playerScore')
+const demoBtn = document.querySelector('#demoBtn')
+
 /* ----------------  
 ... PUZ STATE 
 ------------------*/
@@ -344,7 +347,7 @@ const updateRank = () => {
   let num = 100
   if (puz.score === 0) {
     puz.rank = 'Beginner'
-  } else if (puz.score > 0) {
+  } else if (puz.score < Math.floor(num * 0.02)) {
     puz.rank = `Good start (${puz.score})`
   } else if (puz.score < Math.floor(num * 0.05)) {
     puz.rank = `Moving up (${puz.score})`
@@ -363,7 +366,7 @@ const updateRank = () => {
     alertGenius()
   }
 
-  displayRank()
+  return displayRank()
 }
 
 /* ----------------  
@@ -420,11 +423,9 @@ const displayRank = () => {
 const displayScore = () => {
   playerScore.value = puz.score
   playerScore.innerText = playerScore.value
-  console.log(puz.score)
 }
 
 const displayFeedback = () => {
-  console.log('FEEDBACK???', `${puz.feedback}`)
   feedbackDisplay.innerText = `${puz.feedback}`
 
   // feedbackDisplay.className = 'fadeout'
@@ -434,6 +435,22 @@ const displayFeedback = () => {
     feedbackDisplay.classList.remove('fadeout')
   }, 2300)
 }
+
+const setColScheme = () => {
+  if (colorScheme.innerText === '☀') {
+    colorScheme.innerText = '🌙'
+    BODY.style.backgroundColor = '#202b38'
+    BODY.style.color = '#ebebeb'
+  } else {
+    colorScheme.innerText = '☀'
+    BODY.style.backgroundColor = '#fff'
+    BODY.style.color = '#202b38'
+  }
+}
+
+/* ----------------  
+... DEMO 
+------------------*/
 
 /* ----------------  
 ... EVENT LISTENERS 
@@ -445,3 +462,5 @@ enterBtn.addEventListener('click', validateInput)
 
 puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
+colorScheme.addEventListener('click', setColScheme)
+demoBtn.addEventListener('click', fillPuzState)

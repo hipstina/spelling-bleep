@@ -1,13 +1,25 @@
-.display-input-wrapper {
-  /* height: 80%; */
-}
-.input-display {
-  /* height: 100%; */
-  font-size: 60px;
+/* * {
+  box-sizing: border-box;
 }
 
-.feedback-display {
-  /* height: 20%; */
+body {
+  font-family: sans-serif;
+  max-width: 700px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+button {
+  height: 80px;
+  width: 90px;
+  border: 1px solid #efefef;
+  border-radius: 0.3rem;
+  margin: 5px;
+  font-size: 20px;
+} */
+
+.input-display {
+  font-size: 60px;
 }
 
 .center-letter {
