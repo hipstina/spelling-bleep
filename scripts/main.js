@@ -23,6 +23,7 @@ const demoBtn = document.querySelector('#demoBtn')
 ------------------*/
 // ok to have default puz coded in
 const puz = {
+  valid: false,
   init: {
     set: ['a', 'b', 'c', 'd', 'e', 'f', 'k'],
     center: 'a'
@@ -30,6 +31,7 @@ const puz = {
   order: ['b', 'c', 'd', 'e', 'f', 'k'],
   input: '',
   score: 0,
+  maxScore: 0,
   rank: 'Beginner',
   genius: false,
   smartass: false,
@@ -47,20 +49,47 @@ const puz = {
 ... PUZ SETUP 
 ------------------*/
 
-const validatePuz = () => {} // verify puz.init state meets conditions for gameplay; must return true before puz loads. Else invoke newPuz()
-
-// const calcWords = () => {
+const validatePuz = () => {
+  try {
+    let puzzle = calcWordlist(puz.init.set)
+    return puzzle.length > 20 ? (puz.valid = true) : (puz.valid = false)
+  } catch (error) {
+    console.log(error)
+  }
+} // verify puz.init state meets conditions for gameplay; must set puz.valid = true before puz loads. Else invoke newPuz()
 
 //   calcPangrams()
 //   calcBleeps()
-// } // calculate all possible words
+// }
 
-const isPangram = () => {
+// calculate all possible valid words given a random letter set
+// filter arr by input validation conditions
+const calcWordlist = (charSet) => {
+  let allWords = [...words, ...bleeps]
+  let wordlistSet = []
+  allWords.map((word) => {
+    let isIncluded = [...word].every((letter) => {
+      if (charSet.indexOf(letter) !== -1) return true
+    })
+
+    if (isIncluded) {
+      wordlistSet.push(word)
+    }
+  })
+
+  let everyWord = wordlistSet.filter((word) => {
+    return word.includes(puz.init.center) && word.length > 3 ? true : false
+  })
+  calcMaxScore(everyWord)
+  return everyWord
+}
+
+const isPangram = (charSet, word) => {
   let set = {}
-  puz.init.set.map((letter) => {
+  charSet.map((letter) => {
     return set[letter] ? null : (set[letter] = 0)
   })
-  ;[...puz.input].map((l) => {
+  ;[...word].map((l) => {
     return set[l] ? set[l]++ : (set[l] = 1)
   })
 
@@ -118,6 +147,7 @@ const calcCenter = () => {
 const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
   puz.init.set = [...newPuz]
+  validatePuz()
   calcCenter()
   clearWordlist(e)
   resetScore()
@@ -196,26 +226,26 @@ const shuffleOrder = () => {
 
 const validateInput = (e) => {
   if (puz.input.includes(puz.init.center)) {
-    console.log('includes center letter')
+    console.log('✓ includes center letter')
     if (puz.input.length > 3) {
-      console.log('4 or more letters')
+      console.log('✓ 4 or more letters')
       if (puz.wordlist.indexOf(puz.input) === -1) {
-        console.log('not already found')
+        console.log('✓ not already found')
         validateWord(e)
       } else {
-        console.log('already found')
+        console.log('✕ already found')
         updateFeedback('already found')
         clearInput()
         return
       }
     } else {
-      console.log('too short')
+      console.log('✕ too short')
       updateFeedback('too short')
       clearInput()
       return
     }
   } else {
-    console.log('missing center letter')
+    console.log('✕ missing center letter')
     updateFeedback('missing center letter')
     clearInput()
     return
@@ -225,30 +255,30 @@ const validateInput = (e) => {
 const validateWord = (e) => {
   let allWords = [...words, ...bleeps]
   if (allWords.indexOf(puz.input) !== -1) {
-    console.log('verified word.')
+    console.log('✓ verified word.')
   } else {
-    console.log('not a word in our wordlist')
+    console.log('✕ not a word in our wordlist')
     updateFeedback('not a word in our wordlist')
     clearInput()
     return
   }
 
-  if (isPangram() === true) {
-    console.log("it's a pangram!")
+  if (isPangram(puz.init.set, puz.input) === true) {
+    console.log("✓ it's a pangram!")
     calcBonusScore(7)
     updateFeedback(`pangram! +${puz.input.length + 7} pts`)
     updateWordlist(e)
   } else {
-    console.log('not a pangram ')
+    console.log('✕ not a pangram ')
   }
 
   if (isBleep() === true) {
-    console.log("that's a bleep!")
+    console.log("✓ that's a bleep!")
     calcBonusScore(10)
     updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
   } else {
-    console.log('not a bleep ')
-    calcWordScore()
+    console.log('✕ not a bleep ')
+    calcWordScore(puz.input.length)
     updateWordlist(e)
   }
 }
@@ -310,13 +340,14 @@ const resetScore = () => {
   updateRank()
 }
 
-const calcMaxScore = () => {} // ice-box
+const calcMaxScore = (wordcount) => {
+  console.log('wordcount', wordcount)
+  wordcount.reduce((word) => {}, {})
+} // ice-box
 
 const calcRankings = () => {} // ice-box
 
-const calcWordScore = () => {
-  let charLength = puz.input.length
-
+const calcWordScore = (charLength) => {
   if (charLength < 3) {
     puz.score += 0
   } else if (charLength === 4) {
@@ -361,7 +392,7 @@ const updateRank = () => {
     puz.rank = `Nice (${puz.score} out of 100)`
   } else if (puz.score < Math.floor(num * 0.4)) {
     puz.rank = `Great (${puz.score} out of 100)`
-  } else if (puz.score <= Math.floor(num * 0.5)) {
+  } else if (puz.score < Math.floor(num * 0.5)) {
     puz.rank = `Amazing (${puz.score} out of 100)`
   } else if (puz.score > Math.floor(num * 0.7) && puz.score < num) {
     puz.rank = `Genius (${puz.score} out of 100)`
@@ -498,3 +529,5 @@ puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
 colorScheme.addEventListener('click', setColScheme)
 demoBtn.addEventListener('click', fillPuzState)
+
+window.addEventListener('load', validatePuz)
