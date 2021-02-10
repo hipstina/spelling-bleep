@@ -451,7 +451,29 @@ const setColScheme = () => {
 /* ----------------  
 ... DEMO 
 ------------------*/
-
+const fillPuzState = (e) => {
+  puz.wordlist = [
+    'feedback',
+    'back',
+    'backed',
+    'faced',
+    'face',
+    'cake',
+    'caked',
+    'accede',
+    'acceded',
+    'defaced',
+    'deface',
+    'aback',
+    'faked'
+  ]
+  puz.score = 65
+  puz.rank = 'Amazing'
+  playerRank.innerText = `${puz.rank}`
+  displayWordlist(e)
+  updateWordTally()
+  displayScore()
+}
 /* ----------------  
 ... EVENT LISTENERS 
 ------------------*/
