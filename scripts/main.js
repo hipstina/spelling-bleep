@@ -251,9 +251,12 @@ const updateFeedback = (str) => {
 ... WORDLIST 
 ------------------*/
 
-const clearWordlist = (e) => {
+const clearBonusWords = () => {
   puz.bleeps = []
   puz.pangrams = []
+}
+
+const clearWordlist = (e) => {
   puz.wordlist = []
   try {
     while (wordList.firstChild) {
@@ -274,6 +277,12 @@ const updateWordlist = (e) => {
   // sort in alpha order; iterate through to find idx to splice into
   if (puz.input !== '') {
     puz.wordlist.push(puz.input)
+
+    let temp = [...puz.wordlist].sort((a, b) => {
+      return a.localeCompare(b)
+    })
+
+    puz.wordlist = [...temp]
     displayWordlist(e)
     updateWordTally()
   }
@@ -286,6 +295,7 @@ const resetScore = () => {
   puz.score = 0
   puz.rank = 'Beginner'
   displayScore()
+  updateRank()
 }
 
 const calcMaxScore = () => {} // ice-box
@@ -327,8 +337,7 @@ const updateRank = () => {
   let num = 100
   if (puz.score === 0) {
     puz.rank = 'Beginner'
-  }
-  if (puz.score < Math.floor(num * 0.02)) {
+  } else if (puz.score > 0) {
     puz.rank = `Good start (${puz.score})`
   } else if (puz.score < Math.floor(num * 0.05)) {
     puz.rank = `Moving up (${puz.score})`
@@ -347,7 +356,6 @@ const updateRank = () => {
     alertGenius()
   }
 
-  console.log(puz.rank)
   displayRank()
 }
 
@@ -355,7 +363,7 @@ const updateRank = () => {
 ... UI 
 ------------------*/
 const alertGenius = () => {
-  alert('You reached Genius rank! What a smart ass.')
+  alert('You reached Genius rank! You are a Smart Ass.')
 }
 
 const displayCenter = () => {
@@ -381,11 +389,21 @@ const displayTally = () => {
 }
 
 const displayWordlist = (e) => {
-  let li = document.createElement('li')
-  li.setAttribute = ('class', 'wordlist-item')
-  li.innerText = puz.input
-  wordList.appendChild(li)
-  updateInput(e)
+  try {
+    while (wordList.firstChild) {
+      wordList.removeChild(wordList.firstChild)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+  puz.wordlist.forEach((word) => {
+    let li = document.createElement('li')
+    li.setAttribute('class', 'wordlist-item')
+    li.innerText = word
+    wordList.appendChild(li)
+    updateInput(e)
+  })
 }
 
 const displayRank = () => {

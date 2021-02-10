@@ -46,3 +46,8 @@ progress {
     transform: scale(1.05);
   }
 }
+
+.wordlist-item {
+  text-transform: capitalize;
+  list-style: none;
+}
