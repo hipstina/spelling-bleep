@@ -31,6 +31,8 @@ const puz = {
   input: '',
   score: 0,
   rank: 'Beginner',
+  genius: false,
+  smartass: false,
   feedback: '',
   wordlist: [], // all words including pangrams & bleeps
   pangrams: [], // idx of each pangram in the mainWordList
@@ -303,7 +305,7 @@ const updateWordlist = (e) => {
 ------------------*/
 const resetScore = () => {
   puz.score = 0
-  puz.rank = 'Beginner'
+  puz.rank = `Beginner (${puz.score} out of 100)`
   displayScore()
   updateRank()
 }
@@ -346,24 +348,27 @@ const calcBonusScore = (bonus) => {
 const updateRank = () => {
   let num = 100
   if (puz.score === 0) {
-    puz.rank = 'Beginner'
+    puz.rank = `Beginner (${puz.score} out of 100)`
   } else if (puz.score < Math.floor(num * 0.02)) {
-    puz.rank = `Good start (${puz.score})`
+    puz.rank = `Good start (${puz.score} out of 100)`
   } else if (puz.score < Math.floor(num * 0.05)) {
-    puz.rank = `Moving up (${puz.score})`
+    puz.rank = `Moving up (${puz.score} out of 100)`
   } else if (puz.score < Math.floor(num * 0.08)) {
-    puz.rank = `Good (${puz.score})`
+    puz.rank = `Good (${puz.score} out of 100)`
   } else if (puz.score < Math.floor(num * 0.15)) {
-    puz.rank = `Solid (${puz.score})`
+    puz.rank = `Solid (${puz.score} out of 100)`
   } else if (puz.score < Math.floor(num * 0.33)) {
-    puz.rank = `Nice (${puz.score})`
+    puz.rank = `Nice (${puz.score} out of 100)`
   } else if (puz.score < Math.floor(num * 0.4)) {
-    puz.rank = `Great (${puz.score})`
+    puz.rank = `Great (${puz.score} out of 100)`
   } else if (puz.score <= Math.floor(num * 0.5)) {
-    puz.rank = `Amazing (${puz.score})`
-  } else if (puz.score > Math.floor(num * 0.7)) {
-    puz.rank = `Genius (${puz.score})`
+    puz.rank = `Amazing (${puz.score} out of 100)`
+  } else if (puz.score > Math.floor(num * 0.7) && puz.score < num) {
+    puz.rank = `Genius (${puz.score} out of 100)`
     alertGenius()
+  } else {
+    puz.rank = `Smart Ass (${puz.score} out of 100)`
+    alertSmartass()
   }
 
   return displayRank()
@@ -373,7 +378,17 @@ const updateRank = () => {
 ... UI 
 ------------------*/
 const alertGenius = () => {
-  alert('You reached Genius rank! You are a Smart Ass.')
+  if (puz.genius === false) {
+    alert('Congratulations! You reached Genius rank!')
+    puz.genius = true
+  } else return
+}
+
+const alertSmartass = () => {
+  if (puz.smartass === false) {
+    alert('Hell yeah. You are a Smart Ass.')
+    puz.smartass = true
+  } else return
 }
 
 const displayCenter = () => {
@@ -422,7 +437,7 @@ const displayRank = () => {
 
 const displayScore = () => {
   playerScore.value = puz.score
-  playerScore.innerText = playerScore.value
+  playerScore.innerText = `${playerScore.value}`
 }
 
 const displayFeedback = () => {
@@ -453,19 +468,16 @@ const setColScheme = () => {
 ------------------*/
 const fillPuzState = (e) => {
   puz.wordlist = [
-    'feedback',
+    'aback',
+    'accede',
     'back',
     'backed',
-    'faced',
-    'face',
     'cake',
     'caked',
-    'accede',
-    'acceded',
-    'defaced',
+    'decade',
     'deface',
-    'aback',
-    'faked'
+    'defaced',
+    'face'
   ]
   puz.score = 65
   puz.rank = 'Amazing'
