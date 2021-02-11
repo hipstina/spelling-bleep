@@ -224869,6 +224869,7 @@ const bleeps = [
   'doochbag',
   'doochbags',
   'doodoo',
+  'doody',
   'doofus',
   'dookie',
   'dookies',
@@ -225206,5 +225207,7 @@ const bleeps = [
   'whorebags',
   'whoreface',
   'whorefaces',
+  'wicca',
+  'wiccan',
   'woody',
 ]

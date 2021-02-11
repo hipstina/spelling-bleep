@@ -32,7 +32,10 @@ const puz = {
   input: '',
   score: 0,
   maxScore: 0,
-  rank: 'Beginner',
+  // rank: function () {
+  //   ;`Beginner (${this.puz.score} out of ${this.puz.maxScore})`
+  // },
+  rank: `Beginner`,
   genius: false,
   smartass: false,
   feedback: '',
@@ -46,8 +49,28 @@ const puz = {
 /* ----------------  
 ... PUZ SETUP 
 ------------------*/
+// const optimizeCombos = () => {
+//   let comboSet = combos.filter((set) => {
+//     if (
+//       set.includes('j') ||
+//       set.includes('q') ||
+//       set.includes('s') ||
+//       set.includes('v') ||
+//       set.includes('x') ||
+//       set.includes('z')
+//     ) {
+//       let comboIsFilt = false
+//       return comboIsFilt
+//     } else {
+//       let comboIsFilt = true
+//       return comboIsFilt
+//     }
+//   })
+//   console.log(typeof comboSet, comboSet)
+//   return comboSet
+// }
 
-const validatePuz = () => {
+const optimizePuz = () => {
   let puzzle = calcWordlist(puz.init.set)
   let maxScore = calcMaxScore(puzzle)
   let pangrams = calcAllPangrams(puzzle)
@@ -66,7 +89,7 @@ const validatePuz = () => {
     puz.valid = false
     newPuzzle()
   }
-} // verify puz.init state meets conditions for gameplay; must set puz.valid = true before puz loads. Else invoke newPuz()
+} // optimize each puz. There should be at least 1 pangram and 1 bleep per letter set.
 
 const calcAllPangrams = (wordlist) => {
   let allPangrams = []
@@ -91,8 +114,6 @@ const calcAllBleeps = (wordlist) => {
   // console.log('bleeps', allBleeps.length)
   return allBleeps.length
 }
-
-// e.g Array(7) [ "e", "h", "p", "r", "t", "a", "c" ] center letter E
 
 // calculate all possible valid words given a random letter set
 // filter arr by input validation conditions
@@ -180,11 +201,11 @@ const calcCenter = () => {
 const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
   puz.init.set = [...newPuz]
-  validatePuz()
+  optimizePuz()
   calcCenter()
   clearWordlist(e)
   resetScore()
-} // fetch a random element from helpers `combo` variable. assign each character to a letter.value
+}
 
 const resetPuz = () => {
   puz.feedback = ''
@@ -197,7 +218,7 @@ const snipCenter = (centerIdx) => {
   arr.splice(centerIdx, 1)
   puz.order = arr
   shuffleOrder()
-} // remove the center item from the puz.init.set array and return a new array
+}
 
 const updateInput = (e) => {
   if (e.target.dataset.value !== '') {
@@ -288,27 +309,33 @@ const validateInput = (e) => {
 const validateWord = (e) => {
   let allWords = [...words, ...bleeps]
   if (allWords.indexOf(puz.input) !== -1) {
-    console.log('✓ verified word.')
+    console.log('✓ in our wordlist')
   } else {
-    console.log('✕ not a word in our wordlist')
-    updateFeedback('not a word in our wordlist')
+    console.log('✕ not in our wordlist')
+    updateFeedback('not in our wordlist')
     clearInput()
     return
   }
 
   if (isPangram(puz.init.set, puz.input) === true) {
-    console.log("✓ it's a pangram!")
-    calcBonusScore(7)
+    console.log('✓ pangram!')
+
+    calcWordScore(puz.input.length, 7)
     updateFeedback(`pangram! +${puz.input.length + 7} pts`)
     updateWordlist(e)
   } else {
     console.log('✕ not a pangram ')
   }
 
-  if (isBleep() === true) {
+  if (isBleep(bleeps, puz.input) === true) {
     console.log("✓ that's a bleep!")
-    calcBonusScore(10)
-    updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
+
+    calcWordScore(puz.input.length, 10)
+
+    puz.input.length === 4
+      ? updateFeedback(`bleep word! +${11} pts`)
+      : updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
+
     updateWordlist(e)
   } else {
     console.log('✕ not a bleep ')
@@ -350,7 +377,6 @@ const updateWordTally = () => {
 }
 
 const updateWordlist = (e) => {
-  // sort in alpha order; iterate through to find idx to splice into
   if (puz.input !== '') {
     puz.wordlist.push(puz.input)
 
@@ -369,13 +395,12 @@ const updateWordlist = (e) => {
 ------------------*/
 const resetScore = () => {
   puz.score = 0
-  puz.rank = `Beginner (${puz.score} out of 100)`
+  puz.rank = `Beginner (${puz.score} out of ${puz.maxScore})`
   displayScore()
   updateRank()
 }
 
 const calcMaxScore = (wordcount) => {
-  // console.log('wordcount', wordcount)
   let maxScore = wordcount.reduce((score, word) => {
     if (word.length < 3) {
       score += 0
@@ -387,13 +412,19 @@ const calcMaxScore = (wordcount) => {
 
     return score
   }, 0)
-  // console.log('max score', maxScore)
+  puz.maxScore = maxScore
+  setRankings(maxScore)
   return maxScore
+}
+
+const setRankings = () => {
+  if (puz.maxScore < 366) {
+    puz
+  } else if (puz.maxScore > 366 && puz.maxScore < 900) {
+  }
 } // ice-box
 
-const calcRankings = () => {} // ice-box
-
-const calcWordScore = (charLength) => {
+const calcWordScore = (charLength, bonus) => {
   if (charLength < 3) {
     puz.score += 0
   } else if (charLength === 4) {
@@ -404,50 +435,42 @@ const calcWordScore = (charLength) => {
     updateFeedback(`great! +${charLength} pts`)
   }
 
+  if (bonus === 10) {
+    puz.score += bonus
+  } else if (bonus === 7) {
+    puz.score += bonus
+  }
+
   {
     displayScore()
     updateRank()
   }
 }
 
-const calcBonusScore = (bonus) => {
-  if (bonus === 10) {
-    console.log('BLEEP BONUS')
-    puz.score += bonus + puz.input.length
-  } else if (bonus === 7) {
-    console.log('PANGRAM BONUS')
-    puz.score += bonus + puz.input.length
-  } else {
-    console.log('NO BONUS')
-  }
-
-  displayScore()
-  updateRank()
-}
-
 const updateRank = () => {
-  let num = 100
+  let num = Math.floor(puz.maxScore * 0.5)
+
   if (puz.score === 0) {
-    puz.rank = `Beginner (${puz.score} out of 100)`
+    puz.rank = `Beginner ${puz.score} )`
   } else if (puz.score < Math.floor(num * 0.02)) {
-    puz.rank = `Good start (${puz.score} out of 100)`
+    puz.rank = `Good start ${puz.score} )`
   } else if (puz.score < Math.floor(num * 0.05)) {
-    puz.rank = `Moving up (${puz.score} out of 100)`
+    puz.rank = `Moving up ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.08)) {
-    puz.rank = `Good (${puz.score} out of 100)`
+    puz.rank = `Good ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.15)) {
-    puz.rank = `Solid (${puz.score} out of 100)`
+    puz.rank = `Solid ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.33)) {
-    puz.rank = `Nice (${puz.score} out of 100)`
+    puz.rank = `Nice ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.4)) {
-    puz.rank = `Great (${puz.score} out of 100)`
+    puz.rank = `Great ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.5)) {
-    puz.rank = `Amazing (${puz.score} out of 100)`
-  } else if (puz.score > Math.floor(num * 0.7) && puz.score < num) {
-    puz.rank = `Genius (${puz.score} out of 100)`
+    puz.rank = `Amazing ${puz.score} `
+  } else if (puz.score > Math.floor(num * 0.69) && puz.score < num) {
+    puz.rank = `Genius ${puz.score} `
     alertGenius()
   } else {
-    puz.rank = `Smart Ass (${puz.score} out of 100)`
+    puz.rank = `Smart Ass (${puz.score} `
     alertSmartass()
   }
 
@@ -535,12 +558,12 @@ const displayFeedback = () => {
 const setColScheme = () => {
   if (colorScheme.innerText === '☀') {
     colorScheme.innerText = '🌙'
-    BODY.style.backgroundColor = '#202b38'
-    BODY.style.color = '#ebebeb'
+    BODY.style.backgroundColor = '#232130'
+    BODY.style.color = '#cecef3'
   } else {
     colorScheme.innerText = '☀'
-    BODY.style.backgroundColor = '#fff'
-    BODY.style.color = '#202b38'
+    BODY.style.backgroundColor = '#eeeefb'
+    BODY.style.color = '#232130'
   }
 }
 
@@ -570,6 +593,7 @@ const fillPuzState = (e) => {
 /* ----------------  
 ... EVENT LISTENERS 
 ------------------*/
+
 letters.forEach((letter) => letter.addEventListener('click', updateInput))
 deleteBtn.addEventListener('click', deleteLetter)
 shuffleBtn.addEventListener('click', shuffleOrder)
@@ -579,5 +603,4 @@ puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
 colorScheme.addEventListener('click', setColScheme)
 demoBtn.addEventListener('click', fillPuzState)
-
-window.addEventListener('load', validatePuz)
+window.addEventListener('load', optimizePuz)
