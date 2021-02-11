@@ -23,23 +23,6 @@
   box-sizing: border-box;
 }
 
-main {
-  display: flex;
-  flex-flow: column-reverse nowrap;
-  justify-content: space-evenly;
-  align-content: center;
-  justify-items: center;
-  max-width: 900px;
-  /* margin: 0 auto; */
-}
-
-@media only screen and (min-width: 600px) {
-  main {
-    flex-flow: row nowrap;
-    justify-content: space-evenly;
-  }
-}
-
 body {
   background-color: var(--blue0);
   color: var(--white0);
@@ -57,6 +40,200 @@ header {
 
 details {
   position: relative;
+}
+
+.bleep-page-layout {
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  justify-content: space-evenly;
+  align-content: center;
+  justify-items: center;
+  max-width: 900px;
+  /* margin: 0 auto; */
+}
+
+@media only screen and (min-width: 600px) {
+  .bleep-page-layout {
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+  }
+}
+
+.landing-page-layout {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-content: center;
+  max-width: 400px;
+  height: 90vh;
+  margin: 30px auto;
+  padding: 30px auto;
+  /* border: 1px solid var(--white0); */
+}
+
+.landing-page-layout img {
+  /* border: 1px solid var(--white0); */
+}
+
+.rules {
+  position: absolute;
+  top: -500px;
+  left: 0;
+  right: 0;
+
+  border-radius: 0.3rem;
+  padding: 25px 20px 5px 20px;
+
+  background-color: var(--yellow0);
+  color: var(--blue0);
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+
+  width: 90vw;
+  max-height: 500px;
+  overflow-y: scroll;
+  margin: 100px auto;
+
+  line-height: 1.6;
+
+  transition: all 0.3s ease-in;
+}
+
+@media only screen and (min-width: 600px) {
+  .rules {
+    max-width: 420px;
+    left: 20vw;
+    right: 20vw;
+  }
+}
+.rules-text {
+  padding: 25px 40px;
+}
+
+.slide-in {
+  top: 15vh;
+}
+
+/* .slide-out {
+  top: 0;
+} */
+
+.hidden {
+  visibility: 0;
+  opacity: 0;
+}
+
+.rules-btn-landing h2 {
+  font-weight: 400;
+}
+
+.close-rules {
+  display: block;
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  left: 80%;
+
+  background-color: transparent;
+  color: var(--yellow10);
+  border: 2px solid transparent;
+  padding: 0 15px 0 0;
+  margin: 15px 0;
+  border-radius: 0.3rem;
+
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+
+  cursor: pointer;
+}
+
+.close-rules:hover {
+  color: var(--blue0);
+  /* border: 2px solid var(--blue0); */
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  border: none;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+a:focus-visible {
+  outline: 1px dashed var(--white2);
+}
+
+.landing-controls {
+  display: flex;
+  flex-flow: row-reverse wrap;
+}
+
+.rules-btn-wrapper,
+.play-btn-wrapper {
+  cursor: pointer;
+}
+
+.play-btn,
+.play-btn:visited,
+.rules-btn-landing,
+.rules-btn-landing :visited {
+  height: 70px;
+  width: auto;
+  max-width: 200px;
+
+  border-radius: 0.63rem;
+  margin: 15px;
+  padding: 15px;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  transition: transform 0.1s linear;
+
+  will-change: transform;
+  cursor: pointer;
+}
+
+.play-btn {
+  color: var(--blue0);
+  background-color: var(--yellow0);
+  border: 2px solid transparent;
+}
+
+.rules-btn-landing {
+  color: var(--yellow0);
+  background-color: var(--blue);
+  border: 2px solid var(--yellow0);
+}
+
+.rules-btn-landing:hover {
+  color: var(--blue0);
+  background-color: var(--yellow0);
+  border: 2px solid transparent;
+}
+
+.play-btn:hover {
+  background-color: transparent;
+  color: var(--yellow0);
+  border: 2px solid var(--yellow0);
+}
+
+.play-btn:active,
+.rules-btn-landing:active,
+.close-rules:active {
+  transform: scale(0.95);
+}
+
+.play-btn:focus {
+  outline: var(--blue10);
 }
 
 .top {
@@ -507,6 +684,7 @@ progress::-moz-progress-bar {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 1.5s, opacity 1.5s linear;
+  color: var(--yellow0);
   /* position: absolute;
   top: -25px; */
   animation: blip 1.5s cubic-bezier(0.075, 0.82, 0.99, 0.75);
