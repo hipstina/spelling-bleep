@@ -170,11 +170,6 @@ details {
   margin: 30px 0;
 }
 
-.player-rank {
-  color: var(--white2);
-  letter-spacing: 0.03rem;
-}
-
 .shuffle-btn:focus,
 .delete-btn:focus,
 .enter-btn:focus {
@@ -234,6 +229,10 @@ details {
   text-align: left;
 }
 
+.modal-rules:active {
+  outline: none;
+}
+
 .rules-section {
   display: inline;
   margin: 0 0 5px 0;
@@ -270,7 +269,15 @@ details {
   padding: 0px 10px 5px 10px;
   border-radius: 3rem;
   border: 3px solid transparent;
-  color: var(--yellow0);
+  color: var(--white2);
+}
+
+.modal-rules .rules-btn:hover::before {
+  color: var(--yellow2);
+}
+
+.modal-rules .rules-btn:active::before {
+  color: var(--white0);
 }
 
 .modal-rules[open] {
@@ -319,7 +326,8 @@ summary:focus {
   flex-flow: column;
   align-content: center;
   height: 100px;
-  padding: 25px;
+  padding: 30px 70px;
+  margin: 15px auto;
 }
 
 .display-input-wrapper {
@@ -352,12 +360,16 @@ summary:focus {
 }
 
 @media only screen and (min-width: 600px) {
-  .wordlist-wrapper {
+  .feedback {
     border: 1px solid transparent;
     border-left: 1px solid var(--blue2);
+  }
+
+  .wordlist-wrapper {
+    border: 1px solid transparent;
     min-height: 500px;
     margin: 15px auto;
-    padding: 30px;
+    padding: 30px 50px;
     border-radius: 0rem;
     width: 35vw;
     max-width: 400px;
@@ -368,6 +380,10 @@ summary:focus {
   margin: 5px auto;
   padding: 5px 15px;
   border-radius: 0.3rem;
+}
+
+.wordlist-summary,
+.player-rank {
   text-transform: uppercase;
   font-size: 11px;
   line-height: 1.6;

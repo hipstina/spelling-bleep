@@ -21,7 +21,7 @@
     <button id="colorScheme" class="color-scheme btn">☀</button>
       <button id="demoBtn" class="testing-only demo-btn btn" data-value=""> </button>
 
-    <button class="modal-rules-wrapper"><details class="modal-rules "><summary id="rulesBtnNav" class="rules-btn btn"></summary>
+    <div class="modal-rules-wrapper"><details class="modal-rules "><summary id="rulesBtnNav" class="rules-btn btn"></summary>
 <aside id="modalRules" >
 
   <h3 class="rules-section-label">How to play</h3>
@@ -56,7 +56,7 @@
     </details>
 
 </aside>
-    </details></button>
+    </details></div>
 
   </header>
 
@@ -84,11 +84,8 @@
       </div>
     </section>
 
-    <section >
+    <section class="feedback">
       <div class="slider-wrapper">
-        <!-- <h2 id="playerRank" class="player-rank">Beginner</h2>
-        <input type="progress" min="0" max="100" value="0" class="player-score slider" id="playerScore"> -->
-
         <label for="file" id="playerRank" class="player-rank">Beginner </label>
         <progress  max="100" value="0" class="player-score slider" id="playerScore"> 0 </progress>
       </div>
