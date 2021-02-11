@@ -83,7 +83,14 @@ const optimizePuz = () => {
         console.log('maxscore', maxScore)
         console.log('pangrams', pangrams)
         console.log('bleeps', bleeps)
+        return
+      } else {
+        puz.valid = false
+        newPuzzle()
       }
+    } else {
+      puz.valid = false
+      newPuzzle()
     }
   } else {
     puz.valid = false
@@ -98,20 +105,20 @@ const calcAllPangrams = (wordlist) => {
       allPangrams.push(word)
     }
   })
-  // console.log('pangrams', allPangrams.length)
+  // console.log('pangrams', allPangrams)
   return allPangrams.length
 }
 
 const calcAllBleeps = (wordlist) => {
   let allBleeps = []
   wordlist.forEach((word) => {
-    if (isBleep(bleeps, word) === true) {
+    if (word.includes(puz.init.center) && isBleep(bleeps, word) === true) {
       if (allBleeps.indexOf(word) === -1) {
         allBleeps.push(word)
       }
     }
   })
-  // console.log('bleeps', allBleeps.length)
+  // console.log('bleeps', allBleeps)
   return allBleeps.length
 }
 
@@ -172,8 +179,6 @@ const isBleep = (charSet, word) => {
 const updateBleeps = () => {
   return puz.bleeps.push(puz.input)
 }
-
-const calcBleeps = () => {} // calculate all possible bleep words; update puz state
 
 const calcCenter = () => {
   let index = Math.floor(Math.random() * puz.init.set.length)
@@ -325,6 +330,7 @@ const validateWord = (e) => {
     updateFeedback(`pangram! +${puz.input.length + 7} pts`)
     displayFeedback()
     updateWordlist(e)
+    return
   } else {
     console.log('✕ not a pangram ')
   }
@@ -339,13 +345,15 @@ const validateWord = (e) => {
       : updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
 
     displayFeedback()
-
     updateWordlist(e)
+    return
   } else {
     console.log('✕ not a bleep ')
-    calcWordScore(puz.input.length)
-    updateWordlist(e)
   }
+
+  calcWordScore(puz.input.length)
+  updateWordlist(e)
+  return
 }
 
 const updateFeedback = (str) => {
@@ -452,7 +460,7 @@ const calcWordScore = (charLength, bonus) => {
 }
 
 const updateRank = () => {
-  let num = Math.floor(puz.maxScore * 0.5)
+  let num = Math.floor(puz.maxScore * 0.35)
 
   if (puz.score === 0) {
     puz.rank = `Beginner ${puz.score}`
