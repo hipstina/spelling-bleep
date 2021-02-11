@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐝 Spelling Bleep</title>
   <link rel='stylesheet' href="./style.css">
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+ <!--  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
 </head>
 
 <body>
@@ -68,13 +68,13 @@
         </div>
       </div>
       <div class="letters-wrapper grid">
-        <button class="letter grid-item" data-value="b" data-idx="0">B</button>
-        <button class="letter grid-item" data-value="c" data-idx="1">C</button>
-        <button class="letter grid-item" data-value="d" data-idx="2">D</button>
-        <button id="centerLetter" class="letter center-letter grid-item" data-value="a">A</button>
-        <button class="letter grid-item" data-value="e" data-idx ="3">E</button>
-        <button class="letter grid-item" data-value="f" data-idx ="4">F</button>
-        <button class="letter grid-item" data-value="k" data-idx ="5">K</button>
+        <button class="top letter grid-item" data-value="b" data-idx="0">B</button>
+        <button class="top-left letter grid-item" data-value="c" data-idx="1">C</button>
+        <button class="top-right letter grid-item" data-value="d" data-idx="2">D</button>
+        <button id="centerLetter" class="middle letter center-letter grid-item" data-value="a">A</button>
+        <button class="bot-left letter grid-item" data-value="e" data-idx ="3">E</button>
+        <button class="bot-right letter grid-item" data-value="f" data-idx ="4">F</button>
+        <button class="bottom letter grid-item" data-value="k" data-idx ="5">K</button>
       </div>
       <div class="control-panel">
         <button id="deleteBtn" class="delete-btn btn">&#10005;</button>
@@ -88,7 +88,7 @@
         <!-- <h2 id="playerRank" class="player-rank">Beginner</h2>
         <input type="progress" min="0" max="100" value="0" class="player-score slider" id="playerScore"> -->
 
-        <label for="file" id="playerRank" class="player-rank">Beginner</label>
+        <label for="file" id="playerRank" class="player-rank">Beginner </label>
         <progress  max="100" value="0" class="player-score slider" id="playerScore"> 0 </progress>
       </div>
 

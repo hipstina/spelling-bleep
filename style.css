@@ -1,31 +1,135 @@
-/* * {
+:root {
+  --black0: #1a1924;
+  --black1: #232130;
+  --black2: #2c293d;
+  --blue0: #5555ea;
+  --blue1: #6e6eed;
+  --blue2: #8080ef;
+  --yellow0: #e7eb70;
+  --yellow1: #eaed82;
+  --yellow2: #edf094;
+  --white0: #eeeefb;
+  --white1: #dedef7;
+  --white2: #cecef3;
+}
+
+* {
   box-sizing: border-box;
 }
 
 body {
+  background-color: var(--black1);
+  color: var(--white0);
   font-family: sans-serif;
   max-width: 700px;
   padding: 0 15px;
   margin: 0 auto;
 }
 
+.top {
+  grid-area: toptop;
+}
+.top-left {
+  grid-area: topleft;
+  justify-self: left;
+}
+.top-right {
+  grid-area: topright;
+  justify-self: right;
+}
+.middle {
+  grid-area: mid;
+}
+.bot-left {
+  grid-area: botleft;
+  justify-self: left;
+}
+.bot-right {
+  grid-area: botright;
+  justify-self: right;
+}
+.bottom {
+  grid-area: bot;
+}
+
+.top,
+.top-left,
+.bot-left,
+.bot-right,
+.top-right,
+.middle,
+.bottom {
+  border: 1px solid var(--black2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-areas:
+    '. toptop .'
+    'topleft . topright'
+    '. mid .'
+    'botleft . botright'
+    '. bot .';
+  align-items: center;
+  justify-items: center;
+  gap: 0/0;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
 button {
-  height: 80px;
-  width: 90px;
-  border: 1px solid #efefef;
-  border-radius: 0.3rem;
-  margin: 5px;
-  font-size: 20px;
-} */
+  height: 70px;
+  width: 80px;
+  color: var(--white0);
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.63rem;
+
+  padding: 0;
+  font-size: 30px;
+  font-weight: 600;
+  transition: transform 0.2s ease-in;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.grid > button {
+  height: 70px;
+  width: 80px;
+  color: var(--white0);
+  background-color: var(--black0);
+  border: 1px solid transparent;
+  margin: -15px 5px;
+}
+
+.grid > button:hover {
+  /* transform: scale(1.025); */
+  background-color: var(--black2);
+  border: 1px solid var(--black0);
+}
+
+.control-panel {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 300px;
+  height: 100px;
+  margin: 60px auto;
+}
+
+.control-panel > button {
+  margin: 0 auto;
+}
 
 .input-display {
   font-size: 60px;
 }
 
-.center-letter {
+/* .center-letter {
   color: #757743;
   background-color: #e7eb64;
-}
+} */
 
 label {
   padding-right: 10px;
