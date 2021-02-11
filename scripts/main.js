@@ -105,20 +105,26 @@ const calcAllPangrams = (wordlist) => {
       allPangrams.push(word)
     }
   })
-  // console.log('pangrams', allPangrams)
+  console.log('pangrams', allPangrams)
   return allPangrams.length
 }
 
 const calcAllBleeps = (wordlist) => {
   let allBleeps = []
   wordlist.forEach((word) => {
-    if (word.includes(puz.init.center) && isBleep(bleeps, word) === true) {
+    if (word.indexOf(puz.init.center) === -1) {
+      return allBleeps.length
+    }
+
+    if (isBleep(bleeps, word) === true) {
+      console.log(puz.init.center)
+
       if (allBleeps.indexOf(word) === -1) {
         allBleeps.push(word)
       }
     }
   })
-  // console.log('bleeps', allBleeps)
+  console.log('bleeps', allBleeps)
   return allBleeps.length
 }
 
@@ -211,8 +217,8 @@ const newPuzzle = (e) => {
   } else {
     console.log(`✓ does not include 's'`)
     puz.init.set = [...newPuz]
-    optimizePuz()
     calcCenter()
+    optimizePuz()
     clearWordlist(e)
     resetScore()
   }
@@ -559,7 +565,6 @@ const displayRank = () => {
 
 const displayScore = () => {
   playerScore.value = puz.score
-  console.log(puz.score)
   playerScore.innerText = `${playerScore.value}`
 }
 
