@@ -225,17 +225,18 @@ const updateInput = (e) => {
     puz.input += e.target.dataset.value.toLowerCase()
     displayInput()
   } else {
-    puz.input = ''
+    // puz.input = ''
+    clearInput()
     displayInput()
   }
 } // when a letter button is clicked, append the letter.value to puz.input; then set displayInput.value equal to puz.input
 
 const clearInput = () => {
-  inputDisplay.classList.add('fadeout')
+  inputDisplay.classList.add('fadeout-input')
   setTimeout(function () {
     puz.input = ''
     displayInput()
-    inputDisplay.classList.remove('fadeout')
+    inputDisplay.classList.remove('fadeout-input')
   }, 1000)
 }
 
@@ -322,6 +323,7 @@ const validateWord = (e) => {
 
     calcWordScore(puz.input.length, 7)
     updateFeedback(`pangram! +${puz.input.length + 7} pts`)
+    displayFeedback()
     updateWordlist(e)
   } else {
     console.log('✕ not a pangram ')
@@ -335,6 +337,8 @@ const validateWord = (e) => {
     puz.input.length === 4
       ? updateFeedback(`bleep word! +${11} pts`)
       : updateFeedback(`bleep word! +${puz.input.length + 10} pts`)
+
+    displayFeedback()
 
     updateWordlist(e)
   } else {
@@ -548,10 +552,10 @@ const displayFeedback = () => {
   feedbackDisplay.innerText = `${puz.feedback}`
 
   // feedbackDisplay.className = 'fadeout'
-  feedbackDisplay.classList.add('fadeout')
+  feedbackDisplay.classList.add('fadeout-fb')
   setTimeout(function () {
     feedbackDisplay.innerText = ''
-    feedbackDisplay.classList.remove('fadeout')
+    feedbackDisplay.classList.remove('fadeout-fb')
   }, 2300)
 }
 
@@ -584,7 +588,7 @@ const fillPuzState = (e) => {
     'face'
   ]
   puz.score = 65
-  puz.rank = 'Amazing'
+  puz.rank = `Amazing ${puz.score}`
   playerRank.innerText = `${puz.rank}`
   displayWordlist(e)
   updateWordTally()

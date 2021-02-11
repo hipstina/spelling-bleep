@@ -336,6 +336,7 @@ summary:focus {
 
 .input-display {
   font-size: 2rem;
+  height: 3rem;
   font-weight: 600;
   letter-spacing: 0.2rem;
   padding: 15px;
@@ -343,6 +344,27 @@ summary:focus {
   top: 40px;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+/* blinking cursor */
+.input-display::after {
+  content: ' ';
+  height: 3.3rem;
+  border: none;
+  border-right: 3px solid var(--yellow0);
+  animation: blink 1.2s infinite step-end;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 .wordlist-wrapper {
@@ -481,14 +503,25 @@ progress::-moz-progress-bar {
   margin: -1px;
 }
 
-.fadeout {
+.fadeout-fb {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 1.5s, opacity 1.5s linear;
-  position: absolute;
-  top: -25px;
+  /* position: absolute;
+  top: -25px; */
   animation: blip 1.5s cubic-bezier(0.075, 0.82, 0.99, 0.75);
 }
+
+.fadeout-input {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1.5s, opacity 1.5s linear;
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+  /* animation: blip 1.5s cubic-bezier(0.075, 0.82, 0.99, 0.75); */
+}
+
 @keyframes blip {
   0% {
     transform: scale(0.9);
