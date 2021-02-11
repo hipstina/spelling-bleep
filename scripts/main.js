@@ -79,10 +79,10 @@ const optimizePuz = () => {
     if (pangrams >= 1) {
       if (bleeps >= 1) {
         puz.valid = true
-        console.log('words', puzzle.length)
-        console.log('maxscore', maxScore)
-        console.log('pangrams', pangrams)
-        console.log('bleeps', bleeps)
+        console.log('✓ max words', puzzle.length)
+        console.log('✓ max score', maxScore)
+        console.log('✓ pangrams', pangrams)
+        console.log('✓ bleeps', bleeps)
         return
       } else {
         puz.valid = false
@@ -205,11 +205,17 @@ const calcCenter = () => {
 
 const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
-  puz.init.set = [...newPuz]
-  optimizePuz()
-  calcCenter()
-  clearWordlist(e)
-  resetScore()
+  if (newPuz.includes('s')) {
+    console.log(`✕ includes 's'`)
+    return newPuzzle()
+  } else {
+    console.log(`✓ does not include 's'`)
+    puz.init.set = [...newPuz]
+    optimizePuz()
+    calcCenter()
+    clearWordlist(e)
+    resetScore()
+  }
 }
 
 const resetPuz = () => {
@@ -460,7 +466,8 @@ const calcWordScore = (charLength, bonus) => {
 }
 
 const updateRank = () => {
-  let num = Math.floor(puz.maxScore * 0.35)
+  // let num = Math.floor(puz.maxScore * 0.35)
+  let num = puz.maxScore < 360 ? Math.floor(puz.maxScore * 0.3) : 170
 
   if (puz.score === 0) {
     puz.rank = `Beginner ${puz.score}`
