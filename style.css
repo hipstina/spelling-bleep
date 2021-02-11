@@ -10,6 +10,7 @@
   --blue0: #5555ea;
   --blue1: #6e6eed;
   --blue2: #8080ef;
+  --yellow10: #adb319;
   --yellow0: #e7eb70;
   --yellow1: #eaed82;
   --yellow2: #edf094;
@@ -111,9 +112,9 @@ details {
   margin: 0 auto;
 }
 
-button {
+.btn {
   height: 70px;
-  width: 80px;
+  min-width: 80px;
   color: var(--white0);
   background-color: transparent;
   border: 1px solid transparent;
@@ -155,7 +156,7 @@ button {
   margin: 40px auto;
 }
 
-.control-panel > button {
+.control-panel > .btn {
   margin: 0 auto;
 }
 
@@ -172,6 +173,12 @@ button {
 .player-rank {
   color: var(--white2);
   letter-spacing: 0.03rem;
+}
+
+.shuffle-btn:focus,
+.delete-btn:focus,
+.enter-btn:focus {
+  outline: none;
 }
 
 .reset {
@@ -196,28 +203,57 @@ button {
   font-weight: 400;
 } */
 
-.modal-rules {
+.modal-rules-wrapper {
   position: absolute;
-  top: 5vh;
+  top: 10px;
   right: 0;
   z-index: 2;
   color: var(--yellow0);
-  background-color: var(--blue0);
+  background-color: transparent;
   border: 1px solid transparent;
   padding: 30px 60px;
   border-radius: 0.3rem;
   max-width: 400px;
   line-height: 1.6;
+  transform: scale(0.95);
+  transition: all 0.1s cubic-bezier(0.6, 0.4, 0.98, 0.335);
+}
+
+.modal-rules {
+  color: var(--yellow0);
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 20px 60px;
+  border-radius: 0.3rem;
+  width: 0;
+  height: 0;
+  line-height: 1.6;
+  transform: scale(0.95);
+  transition: all 0.1s ease-in-out;
+  font-size: 17px;
+  text-align: left;
 }
 
 .rules-section {
   display: inline;
   margin: 0 0 5px 0;
   width: 100%;
+  text-align: left;
 }
 
 .rules-section-label {
   display: inline-block;
+  border: 2px solid transparent;
+  font-size: 24px;
+  margin: 15px 0;
+}
+
+.rules-section-label:hover {
+  border-bottom: 2px solid var(--blue0);
+}
+
+.rules-section-label:active {
+  transform: scale(1.08);
 }
 
 /* Hide the default marker. Not supported in IE or Firefox. */
@@ -230,16 +266,37 @@ button {
   font-family: FontAwesome;
   font-weight: 400;
   font-size: 30px;
+
+  padding: 0px 10px 5px 10px;
+  border-radius: 3rem;
+  border: 3px solid transparent;
+  color: var(--yellow0);
 }
 
 .modal-rules[open] {
   background-color: var(--yellow0);
   color: var(--blue0);
   display: inline;
+  transition: all 0.1s ease;
+  overflow-y: scroll;
+  height: 60vh;
+  width: 400px;
 }
 
-.modal-rules[open] .rules-btn {
-  display: inline;
+.modal-rules[open] .rules-btn::before {
+  content: ' \00D7';
+  font-family: FontAwesome;
+  font-weight: 400;
+  font-size: 38px;
+  width: 50px;
+  margin: 0 0 0 90%;
+  border: 3px solid var(--yellow10);
+  color: var(--yellow10);
+}
+
+.modal-rules[open] .rules-btn:hover::before {
+  border: 3px solid var(--blue0);
+  color: var(--blue0);
 }
 
 summary {
@@ -250,7 +307,7 @@ summary:focus {
   outline: none;
 }
 
-details[open] .modal-rules {
+.modal-rules[open] {
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
     0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
@@ -286,6 +343,7 @@ details[open] .modal-rules {
 
   display: inline-block;
   height: auto;
+
   width: 100%;
 
   margin: 0;
@@ -297,7 +355,7 @@ details[open] .modal-rules {
   .wordlist-wrapper {
     border: 1px solid transparent;
     border-left: 1px solid var(--blue2);
-
+    min-height: 500px;
     margin: 15px auto;
     padding: 30px;
     border-radius: 0rem;

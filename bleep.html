@@ -15,16 +15,16 @@
 <body>
   <header>
     <img src="assets/" class="logo" alt="spelling bleep logo" />
-    <h1>Spelling Bleep</h1>
-    <button id="resetMe" class="testing-only reset" data-value="">&#x21bb; </button>
-    <button id="puzMe" class="testing-only" data-value="">→ </button>
-    <button id="colorScheme" class="color-scheme">☀</button>
-      <button id="demoBtn" class="testing-only demo-btn" data-value=""> </button>
+    <h1></h1>
+    <button id="resetMe" class="testing-only reset btn" data-value="">&#x21bb; </button>
+    <button id="puzMe" class="testing-only btn" data-value="">→ </button>
+    <button id="colorScheme" class="color-scheme btn">☀</button>
+      <button id="demoBtn" class="testing-only demo-btn btn" data-value=""> </button>
 
-    <details class="modal-rules"><summary id="rulesBtnNav" class="rules-btn btn"></summary>
+    <button class="modal-rules-wrapper"><details class="modal-rules "><summary id="rulesBtnNav" class="rules-btn btn"></summary>
 <aside id="modalRules" >
 
-  <h3 class="">How to play</h3>
+  <h3 class="rules-section-label">How to play</h3>
   <p>Come up with as many words as possible using the 7-letter set.</p>
   <p>Each word must use the center letter.</p>
   <p>Each word must contain a minimum of 4-letters.</p>
@@ -56,7 +56,7 @@
     </details>
 
 </aside>
-    </details>
+    </details></button>
 
   </header>
 
@@ -69,13 +69,13 @@
         </div>
       </div>
       <div class="letters-wrapper grid">
-        <button class="top letter grid-item" data-value="b" data-idx="0">B</button>
-        <button class="top-left letter grid-item" data-value="c" data-idx="1">C</button>
-        <button class="top-right letter grid-item" data-value="d" data-idx="2">D</button>
-        <button id="centerLetter" class="middle letter center-letter grid-item" data-value="a">A</button>
-        <button class="bot-left letter grid-item" data-value="e" data-idx ="3">E</button>
-        <button class="bot-right letter grid-item" data-value="f" data-idx ="4">F</button>
-        <button class="bottom letter grid-item" data-value="k" data-idx ="5">K</button>
+        <button class="top letter grid-item btn" data-value="b" data-idx="0">B</button>
+        <button class="top-left letter grid-item btn" data-value="c" data-idx="1">C</button>
+        <button class="top-right letter grid-item btn" data-value="d" data-idx="2">D</button>
+        <button id="centerLetter" class="middle letter center-letter grid-item btn" data-value="a">A</button>
+        <button class="bot-left letter grid-item btn" data-value="e" data-idx ="3">E</button>
+        <button class="bot-right letter grid-item btn" data-value="f" data-idx ="4">F</button>
+        <button class="bottom letter grid-item btn" data-value="k" data-idx ="5">K</button>
       </div>
       <div class="control-panel">
         <button id="deleteBtn" class="delete-btn btn">&#10005;</button>
