@@ -395,7 +395,7 @@ const updateWordlist = (e) => {
 ------------------*/
 const resetScore = () => {
   puz.score = 0
-  puz.rank = `Beginner (${puz.score} out of ${puz.maxScore})`
+  puz.rank = `Beginner `
   displayScore()
   updateRank()
 }
@@ -451,9 +451,9 @@ const updateRank = () => {
   let num = Math.floor(puz.maxScore * 0.5)
 
   if (puz.score === 0) {
-    puz.rank = `Beginner ${puz.score} )`
+    puz.rank = `Beginner ${puz.score}`
   } else if (puz.score < Math.floor(num * 0.02)) {
-    puz.rank = `Good start ${puz.score} )`
+    puz.rank = `Good start ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.05)) {
     puz.rank = `Moving up ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.08)) {
@@ -466,11 +466,11 @@ const updateRank = () => {
     puz.rank = `Great ${puz.score} `
   } else if (puz.score < Math.floor(num * 0.5)) {
     puz.rank = `Amazing ${puz.score} `
-  } else if (puz.score > Math.floor(num * 0.69) && puz.score < num) {
+  } else if (puz.score < Math.floor(num * 0.69)) {
     puz.rank = `Genius ${puz.score} `
     alertGenius()
   } else {
-    puz.rank = `Smart Ass (${puz.score} `
+    puz.rank = `Smart Ass ${puz.score} `
     alertSmartass()
   }
 
@@ -557,12 +557,12 @@ const displayFeedback = () => {
 
 const setColScheme = () => {
   if (colorScheme.innerText === '☀') {
-    colorScheme.innerText = '🌙'
-    BODY.style.backgroundColor = '#232130'
-    BODY.style.color = '#cecef3'
+    colorScheme.innerText = '☾'
+    BODY.style.backgroundColor = '#5555ea'
+    BODY.style.color = '#dedef7'
   } else {
     colorScheme.innerText = '☀'
-    BODY.style.backgroundColor = '#eeeefb'
+    BODY.style.backgroundColor = '#edf094'
     BODY.style.color = '#232130'
   }
 }

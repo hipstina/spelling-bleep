@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐝 Spelling Bleep</title>
   <link rel='stylesheet' href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <!--  <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
 </head>
@@ -15,21 +16,21 @@
   <header>
     <img src="assets/" class="logo" alt="spelling bleep logo" />
     <h1>Spelling Bleep</h1>
-    <button id="resetMe" class="testing-only" data-value="">&#x21bb; </button>
+    <button id="resetMe" class="testing-only reset" data-value="">&#x21bb; </button>
     <button id="puzMe" class="testing-only" data-value="">→ </button>
     <button id="colorScheme" class="color-scheme">☀</button>
-      <button id="demoBtn" class="testing-only" data-value="">DEMO </button>
+      <button id="demoBtn" class="testing-only demo-btn" data-value=""> </button>
 
-    <details><summary id="rulesBtnNav" class="rules-btn btn">Rules</summary>
-<aside id="modalRules" class="modal-rules">
+    <details class="modal-rules"><summary id="rulesBtnNav" class="rules-btn btn"></summary>
+<aside id="modalRules" >
 
-  <h2 class="rules-section">How to play</h2>
+  <h3 class="">How to play</h3>
   <p>Come up with as many words as possible using the 7-letter set.</p>
   <p>Each word must use the center letter.</p>
   <p>Each word must contain a minimum of 4-letters.</p>
   <p>Letters can be reused.</p>
 
-  <h2 class="rules-section">How scoring words</h2>
+  <details class="rules-section"><summary><h3 class="rules-section-label">How scoring words</h3></summary>
   <p>The goal is to generate enough words to reach Genius rank.</p>
 
   <ul>
@@ -38,19 +39,21 @@
     <li>pangrams are worth 7 extra points</li>
     <li>bleep words are worth 10 extra points</li>
   </ul>
+  </details>
 
-  <h2 class="rules-section">F.A.Q.</h2>
-  <h3>What counts as a word?</h3>
+  <details class="rules-section"><summary><h3 class="rules-section-label">F.A.Q.</h3></summary>
+  <p><strong>What counts as a word?</strong></p>
   <p>Most words in the English language that are not proper nouns or super
     obscure or super offensive will work in Spelling Bleep.</p>
-  <h3>What is a pangram?</h3>
+  <p><strong>What is a pangram?</strong></p>
   <p>In Spelling Bleep, a pangram is a word that includes all 7 letters at least
     once. Each puzzle includes at least 1 pangram.</p>
-  <h3>What is a bleep word?</h3>
+  <p><strong>What is a bleep word?</strong></p>
   <p>Spelling Bleep rewards players for using foul language. Think words that
     describe body parts and swear words. For example, 'boobies' or 'goddamn' are
     fair game and will earn you extra points. Not all puzzles will include a
     bleep word(s).</p>
+    </details>
 
 </aside>
     </details>
@@ -58,9 +61,7 @@
   </header>
 
   <main>
-    <section>
-          
-
+    <section >
       <div class="displays">
         <div id="feedbackDisplay" class="feedback-display"></div>
         <div class="display-input-wrapper">
@@ -78,12 +79,12 @@
       </div>
       <div class="control-panel">
         <button id="deleteBtn" class="delete-btn btn">&#10005;</button>
-        <button id="shuffleBtn" class="shuffle-btn btn">&#128256;</button>
+        <button id="shuffleBtn" class="shuffle-btn btn"></button>
         <button id="enterBtn" class="enter-btn btn" data-value="">&#10003;</button>
       </div>
     </section>
 
-    <section>
+    <section >
       <div class="slider-wrapper">
         <!-- <h2 id="playerRank" class="player-rank">Beginner</h2>
         <input type="progress" min="0" max="100" value="0" class="player-score slider" id="playerScore"> -->
@@ -93,16 +94,16 @@
       </div>
 
       <div class="wordlist-wrapper">
-        <h2 class="wordlist-summary">You spelled <span id="wordlistTally" class="wordlist-tally" data-value="0">0 words</span></h2>
+        <p class="wordlist-summary"><span id="wordlistTally" class="wordlist-tally" data-value="0">0 words</span></p>
         <ul id="wordList" class="wordlist">
         
         </ul>
       </div>
     </section>
 
-    <section>
+<!--     <section>
       <div id="modalGenius" class="modal-genius"></div>
-    </section>
+    </section> -->
   </main>
 
   
