@@ -15,49 +15,62 @@
 <body>
   <header>
     <img src="assets/" class="logo" alt="spelling bleep logo" />
-    <h1></h1>
-    <button id="resetMe" class="testing-only reset btn" data-value="">&#x21bb; </button>
-    <button id="puzMe" class="testing-only btn" data-value="">→ </button>
-    <button id="colorScheme" class="color-scheme btn">☀</button>
-      <button id="demoBtn" class="testing-only demo-btn btn" data-value=""> </button>
+    <nav>
+      <a id="rulesBtn" " href=" #" class="rules-btn-nav"></a>
+    <a id="resetMe" class="reset " data-value="">&#x21bb; </a>
+    <a id="puzMe" class="new-puz " data-value="">→ </a>
+    <a id="colorScheme" class="color-scheme ">☀</a>
+    
+    <!-- <button id="demoBtn" class="testing-only demo-btn btn" data-value=""> </button> -->
+  </nav>
 
-    <div class="modal-rules-wrapper"><details class="modal-rules "><summary id="rulesBtnNav" class="rules-btn btn"></summary>
-<aside id="modalRules" >
+</div>
+<aside id="modalRulesLand" class="rules hidden slide-out">
+  <button id="closeRules" class="close-rules">✕ </button>
 
-  <h3 class="rules-section-label">How to play</h3>
-  <p>Come up with as many words as possible using the 7-letter set.</p>
-  <p>Each word must use the center letter.</p>
-  <p>Each word must contain a minimum of 4-letters.</p>
-  <p>Letters can be reused.</p>
+  <div class="rules-text">
+    <h2 class="rules-section">How to play</h2>
+    <p>Come up with as many words as possible using the 7-letter set.</p>
+    <p>Each word must use the center letter.</p>
+    <p>Each word must contain a minimum of 4-letters.</p>
+    <p>Letters can be reused.</p>
 
-  <details class="rules-section"><summary><h3 class="rules-section-label">How scoring words</h3></summary>
-  <p>The goal is to generate enough words to reach Genius rank.</p>
+    <details class="rules-section">
+      <summary>
+        <h3 class="rules-section-label">Scoring</h3>
+      </summary>
+      <p>The goal is to generate enough words to reach Genius rank.</p>
 
-  <ul>
-    <li>4-letter words get 1 pt</li>
-    <li>words longer than 4 letters are awarded 1 pt per letter</li>
-    <li>pangrams are worth 7 extra points</li>
-    <li>bleep words are worth 10 extra points</li>
-  </ul>
-  </details>
-
-  <details class="rules-section"><summary><h3 class="rules-section-label">F.A.Q.</h3></summary>
-  <p><strong>What counts as a word?</strong></p>
-  <p>Most words in the English language that are not proper nouns or super
-    obscure or super offensive will work in Spelling Bleep.</p>
-  <p><strong>What is a pangram?</strong></p>
-  <p>In Spelling Bleep, a pangram is a word that includes all 7 letters at least
-    once. Each puzzle includes at least 1 pangram.</p>
-  <p><strong>What is a bleep word?</strong></p>
-  <p>Spelling Bleep rewards players for using foul language. Think words that
-    describe body parts and swear words. For example, 'boobies' or 'goddamn' are
-    fair game and will earn you extra points. Not all puzzles will include a
-    bleep word(s).</p>
+      <ul>
+        <li>4-letter words get 1 pt</li>
+        <li>words longer than 4 letters are awarded 1 pt per letter</li>
+        <li>pangrams are worth 7 extra points</li>
+        <li>bleep words are worth 10 extra points</li>
+      </ul>
     </details>
 
-</aside>
-    </details></div>
+    <details class="rules-section">
+      <summary>
+        <h3 class="rules-section-label">F.A.Q.</h3>
+      </summary>
+      <p><strong>What counts as a word?</strong></p>
+      <p>Most words in the English language that are not proper nouns or super
+        obscure or super offensive will work in Spelling Bleep.</p>
+      <p><strong>What is a pangram?</strong></p>
+      <p>In Spelling Bleep, a pangram is a word that includes all 7 letters at
+        least
+        once. Each puzzle includes at least 1 pangram.</p>
+      <p><strong>What is a bleep word?</strong></p>
+      <p>Spelling Bleep rewards players for using foul language. Think words
+        that
+        describe body parts and swear words. For example, 'boobies' or 'goddamn'
+        are
+        fair game and will earn you extra points. Not all puzzles will include a
+        bleep word(s).</p>
+    </details>
 
+  </div>
+</aside>
   </header>
 
   <main class="bleep-page-layout">
@@ -104,7 +117,7 @@
   </main>
 
   
-
+<script src="scripts/landing.js"></script>
   <script src="scripts/helpers.js"></script>
   <script src="scripts/main.js"></script>
 </body>

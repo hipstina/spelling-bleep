@@ -34,12 +34,18 @@ body {
 }
 
 header {
-  height: 22vh;
+  height: 12vh;
   position: relative;
 }
 
 details {
   position: relative;
+}
+
+nav {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }
 
 .bleep-page-layout {
@@ -77,9 +83,10 @@ details {
 
 .rules {
   position: absolute;
-  top: -500px;
+  top: -700px;
   left: 0;
   right: 0;
+  z-index: 2;
 
   border-radius: 0.3rem;
   padding: 25px 20px 5px 20px;
@@ -92,7 +99,7 @@ details {
     0 100px 80px rgba(0, 0, 0, 0.12);
 
   width: 90vw;
-  max-height: 500px;
+  max-height: 600px;
   overflow-y: scroll;
   margin: 100px auto;
 
@@ -113,12 +120,8 @@ details {
 }
 
 .slide-in {
-  top: 15vh;
+  top: 10vh;
 }
-
-/* .slide-out {
-  top: 0;
-} */
 
 .hidden {
   visibility: 0;
@@ -144,8 +147,8 @@ details {
   margin: 0;
   border-radius: 0.3rem;
 
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
 
@@ -154,7 +157,36 @@ details {
 
 .close-rules:hover {
   color: var(--blue0);
+  transform: scale(1.1);
   /* border: 2px solid var(--blue0); */
+}
+
+.rules-btn-nav {
+  margin-top: 8px;
+}
+
+.rules-btn-nav::before,
+.reset,
+.new-puz,
+.color-scheme {
+  font-size: 30px;
+  padding: 0px 10px 5px 10px;
+  border-radius: 3rem;
+  border: 3px solid transparent;
+  color: var(--white2);
+  font-weight: 400;
+}
+
+.rules-btn-nav:hover::before,
+.reset:hover,
+.new-puz:hover,
+.color-scheme:hover {
+  color: var(--white0);
+}
+
+.rules-btn-nav::before {
+  content: ' \f059';
+  font-family: FontAwesome;
 }
 
 a,
@@ -374,7 +406,7 @@ a:focus-visible {
   font-family: FontAwesome;
   font-weight: 400;
 } */
-
+/* 
 .modal-rules-wrapper {
   position: absolute;
   top: 10px;
@@ -389,7 +421,7 @@ a:focus-visible {
   line-height: 1.6;
   transform: scale(0.95);
   transition: all 0.1s cubic-bezier(0.6, 0.4, 0.98, 0.335);
-}
+} */
 
 .modal-rules {
   color: var(--yellow0);

@@ -59,10 +59,10 @@ const optimizePuz = () => {
     if (pangrams >= 1) {
       if (bleeps >= 1) {
         puz.valid = true
-        console.log('✓ max words', puzzle.length)
-        console.log('✓ max score', maxScore)
-        console.log('✓ pangrams', pangrams)
-        console.log('✓ bleeps', bleeps)
+        // console.log('✓ max words', puzzle.length)
+        // console.log('✓ max score', maxScore)
+        // console.log('✓ pangrams', pangrams)
+        // console.log('✓ bleeps', bleeps)
         return
       } else {
         puz.valid = false
@@ -85,7 +85,7 @@ const calcAllPangrams = (wordlist) => {
       allPangrams.push(word)
     }
   })
-  console.log('pangrams', allPangrams)
+  // console.log('pangrams', allPangrams)
   return allPangrams.length
 }
 
@@ -97,19 +97,17 @@ const calcAllBleeps = (wordlist) => {
     }
 
     if (isBleep(bleeps, word) === true) {
-      console.log(puz.init.center)
+      // console.log(puz.init.center)
 
       if (allBleeps.indexOf(word) === -1) {
         allBleeps.push(word)
       }
     }
   })
-  console.log('bleeps', allBleeps)
+  // console.log('bleeps', allBleeps)
   return allBleeps.length
 }
 
-// calculate all possible valid words given a random letter set
-// filter arr by input validation conditions
 const calcWordlist = (charSet) => {
   let allWords = [...words, ...bleeps]
   let wordlistSet = []
@@ -144,20 +142,16 @@ const isPangram = (charSet, word) => {
     return char > 0
   })
   if (pangram === true) {
-    // updatePangram()
-
     return pangram
   }
 }
-// calculate all possible pangrams; update puz state
-// each char of puz.init.set must exist in the word at least once
+
 const updatePangram = () => {
   return puz.pangrams.push(puz.input)
 }
 
 const isBleep = (charSet, word) => {
   if (charSet.indexOf(word) !== -1) {
-    // updateBleeps()
     return true
   }
 }
@@ -187,31 +181,31 @@ const calcCenter = () => {
     updateCenter(center)
     snipCenter(index)
   }
-} // calculate center letter of the puz; update puz state
+}
 
 const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
-  console.log(`newPuz: ${newPuz}`)
+  // console.log(`newPuz: ${newPuz}`)
   if (newPuz.includes('s')) {
-    console.log(`✕ includes 's'`)
+    // console.log(`✕ includes 's'`)
     return newPuzzle()
   } else if (newPuz.includes('j')) {
-    console.log(`✕ includes 'j'`)
+    // console.log(`✕ includes 'j'`)
     return newPuzzle()
   } else if (newPuz.includes('q')) {
-    console.log(`✕ includes 'q'`)
+    // console.log(`✕ includes 'q'`)
     return newPuzzle()
   } else if (newPuz.includes('v')) {
-    console.log(`✕ includes 'v'`)
+    // console.log(`✕ includes 'v'`)
     return newPuzzle()
   } else if (newPuz.includes('x')) {
-    console.log(`✕ includes 'x'`)
+    // console.log(`✕ includes 'x'`)
     return newPuzzle()
   } else if (newPuz.includes('z')) {
-    console.log(`✕ includes 'z'`)
+    // console.log(`✕ includes 'z'`)
     return newPuzzle()
   } else {
-    console.log(`✓ does not include 'j,q,s,v,x,z'`)
+    // console.log(`✓ does not include 'j,q,s,v,x,z'`)
     puz.init.set = [...newPuz]
     calcCenter()
     optimizePuz()
@@ -293,27 +287,33 @@ const shuffleOrder = () => {
 } // get the puz.init.set array and return a new randomized order array using Fisher-Yates shuffle; update puz state
 
 const validateInput = (e) => {
+  if (puz.input.length > 19) {
+    updateFeedback('too long')
+    clearInput()
+    return
+  }
+
   if (puz.input.includes(puz.init.center)) {
-    console.log('✓ includes center letter')
+    // console.log('✓ includes center letter')
     if (puz.input.length > 3) {
-      console.log('✓ 4 or more letters')
+      // console.log('✓ 4 or more letters')
       if (puz.wordlist.indexOf(puz.input) === -1) {
-        console.log('✓ not already found')
+        // console.log('✓ not already found')
         validateWord(e)
       } else {
-        console.log('✕ already found')
+        // console.log('✕ already found')
         updateFeedback('already found')
         clearInput()
         return
       }
     } else {
-      console.log('✕ too short')
+      // console.log('✕ too short')
       updateFeedback('too short')
       clearInput()
       return
     }
   } else {
-    console.log('✕ missing center letter')
+    // console.log('✕ missing center letter')
     updateFeedback('missing center letter')
     clearInput()
     return
@@ -323,16 +323,16 @@ const validateInput = (e) => {
 const validateWord = (e) => {
   let allWords = [...words, ...bleeps]
   if (allWords.indexOf(puz.input) !== -1) {
-    console.log('✓ in our wordlist')
+    // console.log('✓ in our wordlist')
   } else {
-    console.log('✕ not in our wordlist')
+    // console.log('✕ not in our wordlist')
     updateFeedback('not in our wordlist')
     clearInput()
     return
   }
 
   if (isPangram(puz.init.set, puz.input) === true) {
-    console.log('✓ pangram!')
+    // console.log('✓ pangram!')
 
     calcWordScore(puz.input.length, 7)
     updateFeedback(`pangram! +${puz.input.length + 7} pts`)
@@ -340,11 +340,11 @@ const validateWord = (e) => {
     updateWordlist(e)
     return
   } else {
-    console.log('✕ not a pangram ')
+    // console.log('✕ not a pangram ')
   }
 
   if (isBleep(bleeps, puz.input) === true) {
-    console.log("✓ that's a bleep!")
+    // console.log("✓ that's a bleep!")
 
     calcWordScore(puz.input.length, 10)
 
@@ -356,7 +356,7 @@ const validateWord = (e) => {
     updateWordlist(e)
     return
   } else {
-    console.log('✕ not a bleep ')
+    // console.log('✕ not a bleep ')
   }
 
   calcWordScore(puz.input.length)
@@ -468,7 +468,6 @@ const calcWordScore = (charLength, bonus) => {
 }
 
 const updateRank = () => {
-  // let num = Math.floor(puz.maxScore * 0.35)
   let num = puz.maxScore < 360 ? Math.floor(puz.maxScore * 0.3) : 170
 
   if (puz.score === 0) {
@@ -628,5 +627,5 @@ enterBtn.addEventListener('click', validateInput)
 puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
 colorScheme.addEventListener('click', setColScheme)
-demoBtn.addEventListener('click', fillPuzState)
+// demoBtn.addEventListener('click', fillPuzState)
 window.addEventListener('load', optimizePuz)
