@@ -7,7 +7,7 @@
   --black3: #34304a;
   --blue20: #1919c8;
   --blue10: #3737e6;
-  --blue0: #5555ea;
+  --blue0: #3737e6;
   --blue1: #6e6eed;
   --blue2: #8080ef;
   --yellow10: #adb319;
@@ -143,9 +143,14 @@ footer a:hover {
 
   right: 0;
   height: auto;
-  max-width: 40px;
-  margin: 15px 45px;
+  max-width: 30px;
+  margin: 25px 45px;
   padding: 0;
+  transition: all 0.1s ease;
+}
+
+.logo-nav:hover {
+  transform: scale(1.1);
 }
 
 .title-card {
@@ -255,7 +260,7 @@ footer a:hover {
   font-size: 11px;
   line-height: 1.6;
   letter-spacing: 0.08rem;
-  color: var(--yellow2);
+  color: var(--white1);
 }
 
 .reset:hover::after {
@@ -265,9 +270,9 @@ footer a:hover {
   right: 0;
 }
 .new-puz:hover::after {
-  content: 'next puz';
+  content: 'next';
   bottom: -14px;
-  left: 0;
+  left: 12px;
   right: 0;
 }
 .rules-btn-nav:hover::after {
@@ -494,6 +499,26 @@ a:focus-visible {
   margin: 30px 0;
 }
 
+.shuffle-btn,
+.delete-btn,
+.enter-btn {
+  color: var(--white2);
+}
+
+.shuffle-btn:hover,
+.delete-btn:hover,
+.enter-btn:hover {
+  color: var(--white0);
+  transform: scale(1.1);
+}
+
+.shuffle-btn:active,
+.delete-btn:active,
+.enter-btn:active {
+  color: var(--blue2);
+  transform: scale(0.9);
+}
+
 .shuffle-btn:focus,
 .delete-btn:focus,
 .enter-btn:focus {
@@ -701,12 +726,13 @@ summary:focus {
 }
 
 .center-letter {
-  color: var(--yellow0);
-  border: 2px solid var(--yellow0);
-  /* background-color: var(--blue1); */
+  color: var(--blue0);
+  border: 2px solid var(--white2);
+  background-color: var(--white2);
 }
 .center-letter:hover {
-  background-color: var(--yellow2);
+  background-color: var(--yellow0);
+  border: 2px solid var(--yellow0);
 }
 
 label {
