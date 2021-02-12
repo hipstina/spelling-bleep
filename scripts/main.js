@@ -1,3 +1,4 @@
+console.log(`Stuck? 🐝 Invoke 'hint()' in the console.`)
 /* ----------------  
 ... GLOBAL VARIABLES 
 ------------------*/
@@ -42,6 +43,12 @@ const puz = {
 /* ----------------------------------------------  
 ... FUNCTIONS 
 ------------------------------------------------*/
+
+const hint = () => {
+  let hints = calcWordlist(puz.init.set)
+  let hint = hints[Math.floor(Math.random() * hints.length)]
+  return hint
+}
 
 /* ----------------  
 ... PUZ SETUP 
