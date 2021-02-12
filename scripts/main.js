@@ -25,10 +25,10 @@ const demoBtn = document.querySelector('#demoBtn')
 const puz = {
   valid: false,
   init: {
-    set: ['a', 'b', 'c', 'd', 'e', 'f', 'k'],
-    center: 'a'
+    set: ['b', 'c', 'k', 'l', 'o', 'r', 'a'],
+    center: 'o'
   },
-  order: ['b', 'c', 'd', 'e', 'f', 'k'],
+  order: ['b', 'c', 'k', 'l', 'r', 'a'],
   input: '',
   score: 0,
   maxScore: 0,
@@ -49,26 +49,6 @@ const puz = {
 /* ----------------  
 ... PUZ SETUP 
 ------------------*/
-// const optimizeCombos = () => {
-//   let comboSet = combos.filter((set) => {
-//     if (
-//       set.includes('j') ||
-//       set.includes('q') ||
-//       set.includes('s') ||
-//       set.includes('v') ||
-//       set.includes('x') ||
-//       set.includes('z')
-//     ) {
-//       let comboIsFilt = false
-//       return comboIsFilt
-//     } else {
-//       let comboIsFilt = true
-//       return comboIsFilt
-//     }
-//   })
-//   console.log(typeof comboSet, comboSet)
-//   return comboSet
-// }
 
 const optimizePuz = () => {
   let puzzle = calcWordlist(puz.init.set)
@@ -211,11 +191,27 @@ const calcCenter = () => {
 
 const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
+  console.log(`newPuz: ${newPuz}`)
   if (newPuz.includes('s')) {
     console.log(`✕ includes 's'`)
     return newPuzzle()
+  } else if (newPuz.includes('j')) {
+    console.log(`✕ includes 'j'`)
+    return newPuzzle()
+  } else if (newPuz.includes('q')) {
+    console.log(`✕ includes 'q'`)
+    return newPuzzle()
+  } else if (newPuz.includes('v')) {
+    console.log(`✕ includes 'v'`)
+    return newPuzzle()
+  } else if (newPuz.includes('x')) {
+    console.log(`✕ includes 'x'`)
+    return newPuzzle()
+  } else if (newPuz.includes('z')) {
+    console.log(`✕ includes 'z'`)
+    return newPuzzle()
   } else {
-    console.log(`✓ does not include 's'`)
+    console.log(`✓ does not include 'j,q,s,v,x,z'`)
     puz.init.set = [...newPuz]
     calcCenter()
     optimizePuz()
@@ -596,19 +592,25 @@ const setColScheme = () => {
 ------------------*/
 const fillPuzState = (e) => {
   puz.wordlist = [
-    'aback',
-    'accede',
-    'back',
-    'backed',
-    'cake',
-    'caked',
-    'decade',
-    'deface',
-    'defaced',
-    'face'
+    'Blob',
+    'Block',
+    'Book',
+    'Cobra',
+    'Cock',
+    'Cocoa',
+    'Collar',
+    'Cool',
+    'Cork',
+    'Corral',
+    'Croak',
+    'Koala',
+    'Labor',
+    'Local',
+    'Look',
+    'Roar'
   ]
-  puz.score = 65
-  puz.rank = `Amazing ${puz.score}`
+  puz.score = 59
+  puz.rank = `Nice ${puz.score}`
   playerRank.innerText = `${puz.rank}`
   displayWordlist(e)
   updateWordTally()

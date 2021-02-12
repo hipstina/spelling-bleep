@@ -6,51 +6,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐝 Spelling Bleep</title>
   <link rel='stylesheet' href="./style.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
 </head>
 <body>
-  <main>
+  <main class="landing-page-layout">
 
   <img src="assets/" class="logo" alt="spelling bleep logo" />
   <h1>Spelling Bleep</h1>
+  <div class="landing-controls">
+    <a href="bleep.html" class="play-btn-wrapper "><button class="play-btn " >Play</button></a>
+    <a id="rulesBtn" " href="#" class="rules-btn-wrapper "><button class="rules-btn-landing ">Rules</button></a>
+  </div>
+  <aside id="modalRulesLand" class="rules hidden slide-out">
+<button id="closeRules" class="close-rules">✕ </button>
 
-  <a href="bleep.html"><button class="play-btn btn" >Play</button></a>
-  
-  </main>
-  <aside id="modalRulesLand" class="modal-rules landing">
-    <details>
-      <summary id="rulesBtn" class="rules-btn btn">
-        Rules
-      </summary>
-
+<div class="rules-text">
     <h2 class="rules-section">How to play</h2>
     <p>Come up with as many words as possible using the 7-letter set.</p>
     <p>Each word must use the center letter.</p>
     <p>Each word must contain a minimum of 4-letters.</p>
     <p>Letters can be reused.</p>
 
-    <h2 class="rules-section">How scoring words</h2>
-    <p>The goal is to generate enough words to reach Genius rank.</p>
+    <details class="rules-section">
+      <summary>
+        <h3 class="rules-section-label">Scoring</h3>
+      </summary>
+      <p>The goal is to generate enough words to reach Genius rank.</p>
+    
+      <ul>
+        <li>4-letter words get 1 pt</li>
+        <li>words longer than 4 letters are awarded 1 pt per letter</li>
+        <li>pangrams are worth 7 extra points</li>
+        <li>bleep words are worth 10 extra points</li>
+      </ul>
+    </details>
+    
+    <details class="rules-section">
+      <summary>
+        <h3 class="rules-section-label">F.A.Q.</h3>
+      </summary>
+      <p><strong>What counts as a word?</strong></p>
+      <p>Most words in the English language that are not proper nouns or super
+        obscure or super offensive will work in Spelling Bleep.</p>
+      <p><strong>What is a pangram?</strong></p>
+      <p>In Spelling Bleep, a pangram is a word that includes all 7 letters at least
+        once. Each puzzle includes at least 1 pangram.</p>
+      <p><strong>What is a bleep word?</strong></p>
+      <p>Spelling Bleep rewards players for using foul language. Think words that
+        describe body parts and swear words. For example, 'boobies' or 'goddamn' are
+        fair game and will earn you extra points. Not all puzzles will include a
+        bleep word(s).</p>
+    </details>
+   
+  </div>
+  </aside>
+</main>
 
-    <ul>
-      <li>4-letter words get 1 pt</li>
-      <li>words longer than 4 letters are awarded 1 pt per letter</li>
-      <li>pangrams are worth 7 extra points</li>
-      <li>bleep words are worth 10 extra points</li>
-    </ul>
-
-    <h2 class="rules-section">F.A.Q.</h2>
-    <h3>What counts as a word?</h3>
-    <p>Most words in the English language that are not proper nouns or super obscure or super offensive will work in Spelling Bleep.</p>
-    <h3>What is a pangram?</h3>
-    <p>A pangram in Spelling Bleep is a word that includes all 7 letters at least once. Each puzzle includes at least 1 pangram.</p>
-    <h3>What is a bleep word?</h3>
-    <p>Spelling Bleep rewards players for using foul language. Think words that describe body parts and swear words. For example, 'boobies' or 'goddamn' are fair game and will earn you extra points. Each puzzle includes at least 1 bleep word.</p>
-</details>
-</aside>
-
-
-  <script src="scripts/main.js"></script>
+  <script src="scripts/landing.js"></script>
 </body>
 </html>
