@@ -6,7 +6,7 @@
 ***
 ## Description 
 
-**Spelling Bleep** is my take on the popular [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee)* game. As many puzzlers know, the NYT deems certain words too offensive to permit in Spelling Bee. That is where **Spelling Bleep** comes in. Spelling Bleep allows and even rewards players for using lowbrow or taboo words. In Spelling Bleep, high-scoring words like 'boobies' or 'goddamn' are fair game!
+**Spelling Bleep** is my take on the popular [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee) game. As many puzzlers know, the NYT deems certain words too offensive to permit in Spelling Bee. That is where **Spelling Bleep** comes in. Spelling Bleep allows and even rewards players for using lowbrow or taboo words. In Spelling Bleep, high-scoring words like 'boobies' or 'goddamn' are fair game!
 
 The points breakdown in Spelling Bleep: 
   + 4-letter words get 1 pt 
