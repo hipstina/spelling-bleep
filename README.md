@@ -6,7 +6,7 @@
 ***
 ## Description 
 
-**Spelling Bleep** is my take on the popular [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee)* game. As many puzzlers know, the NYT deems certain words too offensive to permit in Spelling Bee. That is where **Spelling Bleep** comes in. Spelling Bleep allows and even rewards players for using lowbrow or taboo words. In Spelling Bleep, high-scoring words like 'boobies' or 'goddamn' are fair game!
+**Spelling Bleep** is my take on the popular [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee) game. As many puzzlers know, the NYT deems certain words too offensive to permit in Spelling Bee. That is where **Spelling Bleep** comes in. Spelling Bleep allows and even rewards players for using lowbrow or taboo words. In Spelling Bleep, high-scoring words like 'boobies' or 'goddamn' are fair game!
 
 The points breakdown in Spelling Bleep: 
   + 4-letter words get 1 pt 
@@ -42,7 +42,7 @@ Track the progress of new features on Trello: https://trello.com/b/MvjoDecW/spel
 + Bleep words and profanity lists from [@RobertJGabriel](https://github.com/RobertJGabriel/Google-profanity-words/blob/master/list.txt), [Frontgate Media](https://www.frontgatemedia.com/a-list-of-723-bad-words-to-blacklist-and-how-to-use-facebooks-moderation-tool/), [NoSwearing.com](https://www.noswearing.com/dictionary) and [NYTbee]([nytbee.com/](https://nytbee.com/)).
 + Will Shunn's [spelling bee F.A.Q.](https://www.shunn.net/bee/faq)
 + [@anpato](https://github.com/anpato) for helper script 
-+ Color palatte from [Coolors](https://coolors.co)
++ Color palette from [Coolors](https://coolors.co)
 + Icons by [FontAwesome](https://fontawesome.com/v4.7.0/icons/)
 + Wireframe built with [whimsical.com](https://whimsical.com)
 + Logo built with [Figma](https://figma.com) and edited on [canva.com](https://canva.com)
