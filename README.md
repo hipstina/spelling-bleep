@@ -1,12 +1,12 @@
-![NYT spelling bee example](./assets/spelling-bleep-logo.png)
+![Spelling bleep logo on a blue field](./assets/sb-field-blue.png)
 
 # Spelling Bleep
-## Status: **In Progress**
+## Status: **Launched Feb 11, 2021**
 #### [Portfolio](https://christinapadilla.com) | [GitHub](https://github.com/hipstina) | [LinkedIn](https://linkedin.com/in/hipstina)
 ***
-### **Description** 
+## Description 
 
-**Spelling Bleep** is my take on the popular [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee)* game. As many puzzlers know, the NYT deems certain words too offensive to permit in Spelling Bee. That is where **Spelling Bleep** comes in. Spelling Bleep allows and even rewards players for using foul language. In Spelling Bleep, high-scoring words like 'boobies' or 'goddamn' are fair game!
+**Spelling Bleep** is my take on the popular [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee)* game. As many puzzlers know, the NYT deems certain words too offensive to permit in Spelling Bee. That is where **Spelling Bleep** comes in. Spelling Bleep allows and even rewards players for using lowbrow or taboo words. In Spelling Bleep, high-scoring words like 'boobies' or 'goddamn' are fair game!
 
 The points breakdown in Spelling Bleep: 
   + 4-letter words get 1 pt 
@@ -15,34 +15,34 @@ The points breakdown in Spelling Bleep:
   + bleep words are worth 10 extra points
   
 
-**The [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee) is a 7-letter word puzzle. The objective of the game is to spell as many words as possible. The catch is that words must use the center letter and be at least 4 letters long.*
-
-![NYT spelling bee example](./assets/spelling-bee-example.png)
-⬆️ An example of the NYT Spelling Bee puzzle.
-
-**Want the latest buzz?** Track the progress of this project on Trello: https://trello.com/b/MvjoDecW/spelling-bleep
 
 
-### **Technologies Used**
+### Technologies Used
 * HTML
 * CSS
 * JavaScript
 
 
-### **Getting Started**
+### Screenshots
+![Spelling bleep landing page](./assets/landing-page.png)
+![Session of a spelling bleep game](./assets/genius.png)
+
+## Getting Started
 To get started, clone this repo to your local machine.
 ```
 git clone https://github.com/hipstina/spelling-bleep.git
 ```
+## Future Updates
+Track the progress of new features on Trello: https://trello.com/b/MvjoDecW/spelling-bleep
 
-
-### **Screenshots**
-`Coming Soon`
-
-### **Future Updates**
-`Coming Soon`
-
-### **Credits**
-+ Project inspired by the NYT Spelling Bee. It is in no way affiliated with The New York Times.
+## Credits
++ Project inspired by the [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee). It is in no way affiliated with The New York Times.
++ Bleep words and profanity lists from [@RobertJGabriel](https://github.com/RobertJGabriel/Google-profanity-words/blob/master/list.txt), [Frontgate Media](https://www.frontgatemedia.com/a-list-of-723-bad-words-to-blacklist-and-how-to-use-facebooks-moderation-tool/), and [NYTbee]([nytbee.com/](https://nytbee.com/)).
++ [@anpato](https://github.com/anpato) for helper script 
++ Color palatte from [Coolors](https://coolors.co)
++ Icons by [FontAwesome](https://fontawesome.com/v4.7.0/icons/)
 + Wireframe built with [whimsical.com](https://whimsical.com)
-+ Logo edited with [canva.com](https://canva.com)
++ Logo built with [Figma](https://figma.com) and edited on [canva.com](https://canva.com)
+
+## Contributing
+Would you like to make Spelling Bleep better? Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
