@@ -114,6 +114,7 @@ footer a:hover {
 }
 
 .landing-page-layout {
+  position: relative;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
@@ -123,6 +124,41 @@ footer a:hover {
   margin: 30px auto;
   padding: 30px auto;
   /* border: 1px solid var(--white0); */
+}
+
+.logo {
+  position: absolute;
+  top: 14%;
+  left: 0;
+  right: 0;
+  height: auto;
+  max-width: 150px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.logo-nav {
+  position: absolute;
+  top: 0%;
+
+  right: 0;
+  height: auto;
+  max-width: 40px;
+  margin: 15px 45px;
+  padding: 0;
+}
+
+.title-card {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Inter';
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.3rem;
+  color: var(--yellow2);
+  margin: 0 auto 30px auto;
+  padding: 30px;
 }
 
 .rules {
@@ -213,9 +249,6 @@ footer a:hover {
 .reset:hover::after,
 .new-puz:hover::after {
   position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
 
   text-transform: uppercase;
   text-align: left;
@@ -227,18 +260,21 @@ footer a:hover {
 
 .reset:hover::after {
   content: 'reset';
-  bottom: -20px;
-  left: 0;
+  bottom: -14px;
+  left: 10px;
   right: 0;
 }
 .new-puz:hover::after {
   content: 'next puz';
-  bottom: -30px;
+  bottom: -14px;
   left: 0;
   right: 0;
 }
 .rules-btn-nav:hover::after {
   content: 'info';
+  bottom: 0px;
+  left: 20px;
+  right: 0;
 }
 
 .rules-btn-nav::before,
@@ -247,7 +283,7 @@ footer a:hover {
 .color-scheme {
   position: relative;
   font-size: 25px;
-  padding: 0px 10px 5px 10px;
+  padding: 0px 20px 5px 20px;
   border-radius: 3rem;
   border: 3px solid transparent;
   color: var(--white3);
