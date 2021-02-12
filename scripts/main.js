@@ -232,18 +232,16 @@ const updateInput = (e) => {
     puz.input += e.target.dataset.value.toLowerCase()
     displayInput()
   } else {
-    // puz.input = ''
     clearInput()
     displayInput()
   }
-} // when a letter button is clicked, append the letter.value to puz.input; then set displayInput.value equal to puz.input
+}
 
 const clearInput = () => {
-  inputDisplay.classList.add('fadeout-input')
+  displayInput()
   setTimeout(function () {
     puz.input = ''
     displayInput()
-    inputDisplay.classList.remove('fadeout-input')
   }, 1000)
 }
 
@@ -587,7 +585,7 @@ const setColScheme = () => {
 }
 
 /* ----------------  
-... DEMO 
+... DEMO (TESTING)
 ------------------*/
 const fillPuzState = (e) => {
   puz.wordlist = [
@@ -626,6 +624,6 @@ enterBtn.addEventListener('click', validateInput)
 
 puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
-colorScheme.addEventListener('click', setColScheme)
+// colorScheme.addEventListener('click', setColScheme)
 // demoBtn.addEventListener('click', fillPuzState)
 window.addEventListener('load', optimizePuz)

@@ -14,12 +14,12 @@
 
 <body>
   <header>
-    <img src="assets/" class="logo" alt="spelling bleep logo" />
-    <nav>
+<!--     <img src="assets/" class="logo" alt="spelling bleep logo" />
+ -->    <nav>
       <a id="rulesBtn" " href=" #" class="rules-btn-nav"></a>
     <a id="resetMe" class="reset " data-value="">&#x21bb; </a>
     <a id="puzMe" class="new-puz " data-value="">→ </a>
-    <a id="colorScheme" class="color-scheme ">☀</a>
+    <!-- <a id="colorScheme" class="color-scheme ">☀</a> -->
     
     <!-- <button id="demoBtn" class="testing-only demo-btn btn" data-value=""> </button> -->
   </nav>
@@ -76,9 +76,9 @@
   <main class="bleep-page-layout">
     <section >
       <div class="displays">
-        <div id="feedbackDisplay" class="feedback-display"></div>
+        <div class="fb-display-wrapper"><div id="feedbackDisplay" class="feedback-display"></div></div>
         <div class="display-input-wrapper">
-          <h2 id="inputDisplay" class="input-display" data-value=""></h2>
+          <h2 id="inputDisplay" class="input-display "  data-value=""></h2>
         </div>
       </div>
       <div class="letters-wrapper grid">
@@ -110,12 +110,11 @@
         </ul>
       </div>
     </section>
-
-<!--     <section>
-      <div id="modalGenius" class="modal-genius"></div>
-    </section> -->
   </main>
-
+<footer>
+  <p>© 2021 <a href="https://github.com/hipstina/spelling-bleep" >Christina Padilla</a></p>
+ 
+</footer>
   
 <script src="scripts/landing.js"></script>
   <script src="scripts/helpers.js"></script>
