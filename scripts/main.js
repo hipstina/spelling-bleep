@@ -21,7 +21,6 @@ const demoBtn = document.querySelector('#demoBtn')
 /* ----------------  
 ... PUZ STATE 
 ------------------*/
-// ok to have default puz coded in
 const puz = {
   valid: false,
   init: {
@@ -32,14 +31,12 @@ const puz = {
   input: '',
   score: 0,
   maxScore: 0,
-  // rank: function () {
-  //   ;`Beginner (${this.puz.score} out of ${this.puz.maxScore})`
-  // },
+
   rank: `Beginner`,
   genius: false,
   smartass: false,
   feedback: '',
-  wordlist: [] // player's valid words including pangrams & bleeps
+  wordlist: []
 }
 
 /* ----------------------------------------------  
@@ -59,10 +56,7 @@ const optimizePuz = () => {
     if (pangrams >= 1) {
       if (bleeps >= 1) {
         puz.valid = true
-        // console.log('✓ max words', puzzle.length)
-        // console.log('✓ max score', maxScore)
-        // console.log('✓ pangrams', pangrams)
-        // console.log('✓ bleeps', bleeps)
+
         return
       } else {
         puz.valid = false
@@ -76,7 +70,7 @@ const optimizePuz = () => {
     puz.valid = false
     newPuzzle()
   }
-} // optimize each puz. There should be at least 1 pangram and 1 bleep per letter set.
+}
 
 const calcAllPangrams = (wordlist) => {
   let allPangrams = []
@@ -85,7 +79,6 @@ const calcAllPangrams = (wordlist) => {
       allPangrams.push(word)
     }
   })
-  // console.log('pangrams', allPangrams)
   return allPangrams.length
 }
 
@@ -97,14 +90,11 @@ const calcAllBleeps = (wordlist) => {
     }
 
     if (isBleep(bleeps, word) === true) {
-      // console.log(puz.init.center)
-
       if (allBleeps.indexOf(word) === -1) {
         allBleeps.push(word)
       }
     }
   })
-  // console.log('bleeps', allBleeps)
   return allBleeps.length
 }
 
@@ -175,7 +165,6 @@ const calcCenter = () => {
     center === 'x' ||
     center === 'z'
   ) {
-    // avoid setting f,g,j,k,q,s,v,w,x, or z as center letter (per nytbee.com stats)
     calcCenter()
   } else {
     updateCenter(center)
@@ -185,27 +174,19 @@ const calcCenter = () => {
 
 const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
-  // console.log(`newPuz: ${newPuz}`)
   if (newPuz.includes('s')) {
-    // console.log(`✕ includes 's'`)
     return newPuzzle()
   } else if (newPuz.includes('j')) {
-    // console.log(`✕ includes 'j'`)
     return newPuzzle()
   } else if (newPuz.includes('q')) {
-    // console.log(`✕ includes 'q'`)
     return newPuzzle()
   } else if (newPuz.includes('v')) {
-    // console.log(`✕ includes 'v'`)
     return newPuzzle()
   } else if (newPuz.includes('x')) {
-    // console.log(`✕ includes 'x'`)
     return newPuzzle()
   } else if (newPuz.includes('z')) {
-    // console.log(`✕ includes 'z'`)
     return newPuzzle()
   } else {
-    // console.log(`✓ does not include 'j,q,s,v,x,z'`)
     puz.init.set = [...newPuz]
     calcCenter()
     optimizePuz()
@@ -259,7 +240,7 @@ const updateLetters = () => {
     })
   }
   displayLetters()
-} // whenever puz.order is updated, set letter.value equal to its respective idx value in
+}
 
 /* ----------------  
 ... CONTROL PANEL 
@@ -271,7 +252,7 @@ const deleteLetter = () => {
     puz.input = temp.join('')
     displayInput()
   }
-} // remove the last character on the displayInput.value. Use splice()
+}
 
 const shuffleOrder = () => {
   let array = puz.order
@@ -282,8 +263,7 @@ const shuffleOrder = () => {
   }
   puz.order = array
   updateLetters()
-} // get the puz.init.set array and return a new randomized order array using Fisher-Yates shuffle; update puz state
-
+}
 const validateInput = (e) => {
   if (puz.input.length > 19) {
     updateFeedback('too long')
@@ -292,26 +272,20 @@ const validateInput = (e) => {
   }
 
   if (puz.input.includes(puz.init.center)) {
-    // console.log('✓ includes center letter')
     if (puz.input.length > 3) {
-      // console.log('✓ 4 or more letters')
       if (puz.wordlist.indexOf(puz.input) === -1) {
-        // console.log('✓ not already found')
         validateWord(e)
       } else {
-        // console.log('✕ already found')
         updateFeedback('already found')
         clearInput()
         return
       }
     } else {
-      // console.log('✕ too short')
       updateFeedback('too short')
       clearInput()
       return
     }
   } else {
-    // console.log('✕ missing center letter')
     updateFeedback('missing center letter')
     clearInput()
     return
@@ -321,29 +295,22 @@ const validateInput = (e) => {
 const validateWord = (e) => {
   let allWords = [...words, ...bleeps]
   if (allWords.indexOf(puz.input) !== -1) {
-    // console.log('✓ in our wordlist')
   } else {
-    // console.log('✕ not in our wordlist')
     updateFeedback('not in our wordlist')
     clearInput()
     return
   }
 
   if (isPangram(puz.init.set, puz.input) === true) {
-    // console.log('✓ pangram!')
-
     calcWordScore(puz.input.length, 7)
     updateFeedback(`pangram! +${puz.input.length + 7} pts`)
     displayFeedback()
     updateWordlist(e)
     return
   } else {
-    // console.log('✕ not a pangram ')
   }
 
   if (isBleep(bleeps, puz.input) === true) {
-    // console.log("✓ that's a bleep!")
-
     calcWordScore(puz.input.length, 10)
 
     puz.input.length === 4
@@ -354,7 +321,6 @@ const validateWord = (e) => {
     updateWordlist(e)
     return
   } else {
-    // console.log('✕ not a bleep ')
   }
 
   calcWordScore(puz.input.length)
@@ -363,7 +329,6 @@ const validateWord = (e) => {
 }
 
 const updateFeedback = (str) => {
-  //switch statement
   puz.feedback = str
   displayFeedback()
 }
@@ -440,7 +405,7 @@ const setRankings = () => {
     puz
   } else if (puz.maxScore > 366 && puz.maxScore < 900) {
   }
-} // ice-box
+}
 
 const calcWordScore = (charLength, bonus) => {
   if (charLength < 3) {
@@ -521,12 +486,12 @@ const displayLetters = () => {
   letters.forEach((letter) => {
     letter.innerText = letter.dataset.value.toUpperCase()
   })
-} // whenever letter.value is updated, set letter.innerText to equal letter.value
+}
 
 const displayInput = () => {
   inputDisplay.dataset.value = puz.input
   inputDisplay.innerText = inputDisplay.dataset.value.toUpperCase()
-} // whenever its displayInput.value is changed update the innerText of displayInput to equal displayInput.value
+}
 
 const displayTally = () => {
   if (wordlistTally.dataset.value == 1) {
@@ -564,7 +529,6 @@ const displayScore = () => {
 const displayFeedback = () => {
   feedbackDisplay.innerText = `${puz.feedback}`
 
-  // feedbackDisplay.className = 'fadeout'
   feedbackDisplay.classList.add('fadeout-fb')
   setTimeout(function () {
     feedbackDisplay.innerText = ''
@@ -624,6 +588,5 @@ enterBtn.addEventListener('click', validateInput)
 
 puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
-// colorScheme.addEventListener('click', setColScheme)
-// demoBtn.addEventListener('click', fillPuzState)
+
 window.addEventListener('load', optimizePuz)
