@@ -59,7 +59,7 @@ nav {
 
 footer {
   position: absolute;
-  bottom: -250px;
+  bottom: calc(5 / 10vh);
   left: 0;
   right: 0;
   text-align: center;
@@ -67,6 +67,20 @@ footer {
   margin: 15px;
   color: var(--blue2);
 }
+
+@media only screen and (min-height: 960px) {
+  footer {
+    position: absolute;
+    bottom: 1vh;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 10px;
+    margin: 15px;
+    color: var(--blue2);
+  }
+}
+
 footer a {
   color: var(--blue2);
   text-decoration: none;
