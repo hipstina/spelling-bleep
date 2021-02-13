@@ -230,7 +230,7 @@ const clearInput = () => {
   setTimeout(function () {
     puz.input = ''
     displayInput()
-  }, 1000)
+  }, 300)
 }
 
 const updateCenter = (c) => {
