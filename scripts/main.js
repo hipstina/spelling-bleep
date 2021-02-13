@@ -59,7 +59,7 @@ const optimizePuz = () => {
   let maxScore = calcMaxScore(puzzle)
   let pangrams = calcAllPangrams(puzzle)
   let bleeps = calcAllBleeps(puzzle)
-  if (puzzle.length > 20) {
+  if (puzzle.length >= 60) {
     if (pangrams >= 1) {
       if (bleeps >= 1) {
         puz.valid = true
