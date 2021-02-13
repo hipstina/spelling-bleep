@@ -32,8 +32,8 @@ const puz = {
   input: '',
   score: 0,
   maxScore: 0,
-
-  rank: `Beginner`,
+  percent: 0,
+  rank: `Beginner 0%`,
   genius: false,
   smartass: false,
   feedback: '',
@@ -385,7 +385,8 @@ const updateWordlist = (e) => {
 ------------------*/
 const resetScore = () => {
   puz.score = 0
-  puz.rank = `Beginner `
+  puz.percent = 0
+  puz.rank = `Beginner 0%`
   puz.smartass = false
   puz.genius = false
   displayScore()
@@ -442,31 +443,42 @@ const calcWordScore = (charLength, bonus) => {
 const updateRank = () => {
   let num = puz.maxScore < 360 ? Math.floor(puz.maxScore * 0.3) : 170
   let meter = Math.round((puz.score / Math.floor(num * 0.69)) * 100)
-
+  console.log(meter)
   if (puz.score === 0) {
     puz.rank = `Beginner 0%`
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.02)) {
     puz.rank = `Good start ${meter}% `
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.05)) {
     puz.rank = `Moving up ${meter}%`
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.08)) {
     puz.rank = `Good ${meter}%`
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.15)) {
     puz.rank = `Solid ${meter}%`
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.33)) {
     puz.rank = `Nice ${meter}%`
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.4)) {
     puz.rank = `Great ${meter}%`
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.5)) {
     puz.rank = `Amazing ${meter}%`
+    puz.percent = meter
   } else if (puz.score < Math.floor(num * 0.69)) {
     puz.rank = `Genius ${meter}%`
+    puz.percent = meter
     alertGenius()
   } else {
     puz.rank = `Smart Ass ${meter}% `
+    puz.percent = meter
     alertSmartass()
   }
 
+  displayScore()
   return displayRank()
 }
 
@@ -532,7 +544,7 @@ const displayRank = () => {
 }
 
 const displayScore = () => {
-  playerScore.value = puz.score
+  playerScore.value = puz.percent
   playerScore.innerText = `${playerScore.value}`
 }
 
