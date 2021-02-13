@@ -386,6 +386,8 @@ const updateWordlist = (e) => {
 const resetScore = () => {
   puz.score = 0
   puz.rank = `Beginner `
+  puz.smartass = false
+  puz.genius = false
   displayScore()
   updateRank()
 }
