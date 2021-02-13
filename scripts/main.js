@@ -441,28 +441,29 @@ const calcWordScore = (charLength, bonus) => {
 
 const updateRank = () => {
   let num = puz.maxScore < 360 ? Math.floor(puz.maxScore * 0.3) : 170
+  let meter = Math.round((puz.score / Math.floor(num * 0.69)) * 100)
 
   if (puz.score === 0) {
-    puz.rank = `Beginner ${puz.score}`
+    puz.rank = `Beginner 0%`
   } else if (puz.score < Math.floor(num * 0.02)) {
-    puz.rank = `Good start ${puz.score} `
+    puz.rank = `Good start ${meter}% `
   } else if (puz.score < Math.floor(num * 0.05)) {
-    puz.rank = `Moving up ${puz.score} `
+    puz.rank = `Moving up ${meter}%`
   } else if (puz.score < Math.floor(num * 0.08)) {
-    puz.rank = `Good ${puz.score} `
+    puz.rank = `Good ${meter}%`
   } else if (puz.score < Math.floor(num * 0.15)) {
-    puz.rank = `Solid ${puz.score} `
+    puz.rank = `Solid ${meter}%`
   } else if (puz.score < Math.floor(num * 0.33)) {
-    puz.rank = `Nice ${puz.score} `
+    puz.rank = `Nice ${meter}%`
   } else if (puz.score < Math.floor(num * 0.4)) {
-    puz.rank = `Great ${puz.score} `
+    puz.rank = `Great ${meter}%`
   } else if (puz.score < Math.floor(num * 0.5)) {
-    puz.rank = `Amazing ${puz.score} `
+    puz.rank = `Amazing ${meter}%`
   } else if (puz.score < Math.floor(num * 0.69)) {
-    puz.rank = `Genius ${puz.score} `
+    puz.rank = `Genius ${meter}%`
     alertGenius()
   } else {
-    puz.rank = `Smart Ass ${puz.score} `
+    puz.rank = `Smart Ass ${meter}% `
     alertSmartass()
   }
 
