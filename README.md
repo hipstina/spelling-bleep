@@ -39,7 +39,7 @@ Track the progress of new features on Trello: https://trello.com/b/MvjoDecW/spel
 + Project inspired by the [NYT Spelling Bee](https://www.nytimes.com/puzzles/spelling-bee). It is in no way affiliated with The New York Times.
 + [This word list](https://norvig.com/ngrams/enable1.txt) by [Peter Norvig](https://norvig.com/ngrams/)
 + This [list of valid puzzle combos](https://storage.googleapis.com/spelling-bee/ls-7.txt) by [@ImJasonH](https://github.com/ImJasonH/spelling-bee) 
-+ Bleep words and profanity lists from [@RobertJGabriel](https://github.com/RobertJGabriel/Google-profanity-words/blob/master/list.txt), [Frontgate Media](https://www.frontgatemedia.com/a-list-of-723-bad-words-to-blacklist-and-how-to-use-facebooks-moderation-tool/), [NoSwearing.com](https://www.noswearing.com/dictionary) and [NYTbee]([nytbee.com/](https://nytbee.com/)).
++ Bleep words and profanity lists from [@RobertJGabriel](https://github.com/RobertJGabriel/Google-profanity-words/blob/master/list.txt), [Frontgate Media](https://www.frontgatemedia.com/a-list-of-723-bad-words-to-blacklist-and-how-to-use-facebooks-moderation-tool/), [NoSwearing.com](https://www.noswearing.com/dictionary) and [NYTbee](https://nytbee.com/).
 + Will Shunn's [spelling bee F.A.Q.](https://www.shunn.net/bee/faq)
 + [@anpato](https://github.com/anpato) for helper script 
 + Color palette from [Coolors](https://coolors.co)

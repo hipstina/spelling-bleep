@@ -91,7 +91,8 @@ footer a:hover {
   display: flex;
   flex-flow: column-reverse nowrap;
   max-width: 900px;
-  height: 100vh;
+  /* min-height: 100vh; */
+  height: auto;
   margin: 0;
 }
 
@@ -102,7 +103,7 @@ footer a:hover {
     grid-template-rows: 1fr;
     align-items: center;
     max-width: 900px;
-    height: 80vh;
+    min-height: 70vh;
     margin: 0;
   }
 }
@@ -625,7 +626,7 @@ summary:focus {
 }
 
 .feedback {
-  height: 400px;
+  max-height: 400px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -724,11 +725,16 @@ label {
   padding-right: 10px;
   font-size: 1rem;
 }
+
+/* https://blog.teamtreehouse.com/use-meter-progress-elements */
 progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   width: 100%;
   height: 17px;
+
   background-color: var(--blue0);
-  border: 2px solid var(--white2);
   border-radius: 0.6rem;
   margin: 15px auto;
   transition: all 0.1s ease-in-out;
@@ -740,20 +746,18 @@ progress::-webkit-progress-bar {
   background-color: var(--blue0);
   border: 1px solid var(--white2);
   border-radius: 3rem;
-
   margin: -1.3px auto;
 }
 progress::-webkit-progress-value {
-  width: 100%;
   height: 15px;
   background-color: var(--yellow0);
+  border: 1px solid transparent;
   border-radius: 3rem;
-  margin: -1.18px;
 }
 progress::-moz-progress-bar {
-  width: 100%;
-  height: 15px;
+  height: 16px;
   background-color: var(--yellow0);
+  border: 1px solid transparent;
   border-radius: 3rem;
   margin: -1px;
 }
