@@ -216,6 +216,12 @@ const snipCenter = (centerIdx) => {
 }
 
 const updateInput = (e) => {
+  if (puz.input.length > 19) {
+    updateFeedback('too long')
+    clearInput()
+    return
+  }
+
   if (e.target.dataset.value !== '') {
     puz.input += e.target.dataset.value.toLowerCase()
     displayInput()
@@ -272,12 +278,6 @@ const shuffleOrder = () => {
   updateLetters()
 }
 const validateInput = (e) => {
-  if (puz.input.length > 19) {
-    updateFeedback('too long')
-    clearInput()
-    return
-  }
-
   if (puz.input.includes(puz.init.center)) {
     if (puz.input.length > 3) {
       if (puz.wordlist.indexOf(puz.input) === -1) {
