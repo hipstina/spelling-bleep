@@ -18,6 +18,8 @@ const wordlistTally = document.querySelector('#wordlistTally')
 const playerRank = document.querySelector('#playerRank')
 const playerScore = document.querySelector('#playerScore')
 const demoBtn = document.querySelector('#demoBtn')
+const wordlistSummary = document.querySelector('#wordlistSummary')
+const wordlistArrow = document.querySelector('#wordlistArrow')
 
 /* ----------------  
 ... PUZ STATE 
@@ -435,7 +437,6 @@ const calcWordScore = (charLength, bonus) => {
   }
 
   {
-    displayScore()
     updateRank()
   }
 }
@@ -571,35 +572,42 @@ const setColScheme = () => {
   }
 }
 
+const toggleWordlist = () => {
+  wordList.classList.toggle('wordlist-mobile-closed')
+  wordList.classList.toggle('wordlist-mobile-open')
+  wordlistArrow.classList.toggle('wordlist-arrow-open')
+  wordlistArrow.classList.toggle('wordlist-arrow-closed')
+}
+
 /* ----------------  
 ... DEMO (TESTING)
 ------------------*/
-const fillPuzState = (e) => {
-  puz.wordlist = [
-    'Blob',
-    'Block',
-    'Book',
-    'Cobra',
-    'Cock',
-    'Cocoa',
-    'Collar',
-    'Cool',
-    'Cork',
-    'Corral',
-    'Croak',
-    'Koala',
-    'Labor',
-    'Local',
-    'Look',
-    'Roar'
-  ]
-  puz.score = 59
-  puz.rank = `Nice ${puz.score}`
-  playerRank.innerText = `${puz.rank}`
-  displayWordlist(e)
-  updateWordTally()
-  displayScore()
-}
+// const fillPuzState = (e) => {
+//   puz.wordlist = [
+//     'Blob',
+//     'Block',
+//     'Book',
+//     'Cobra',
+//     'Cock',
+//     'Cocoa',
+//     'Collar',
+//     'Cool',
+//     'Cork',
+//     'Corral',
+//     'Croak',
+//     'Koala',
+//     'Labor',
+//     'Local',
+//     'Look',
+//     'Roar'
+//   ]
+//   puz.score = 59
+//   puz.rank = `Nice ${puz.score}`
+//   playerRank.innerText = `${puz.rank}`
+//   displayWordlist(e)
+//   updateWordTally()
+//   displayScore()
+// }
 /* ----------------  
 ... EVENT LISTENERS 
 ------------------*/
@@ -611,5 +619,5 @@ enterBtn.addEventListener('click', validateInput)
 
 puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
-
+wordlistSummary.addEventListener('click', toggleWordlist)
 window.addEventListener('load', optimizePuz)
