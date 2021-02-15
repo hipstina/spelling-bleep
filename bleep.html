@@ -14,11 +14,14 @@
 
 <body>
   <header>
-    <a href="/" class="logo-nav-link"><img src="assets/logo-white-b10.png" class="logo-nav" alt="spelling bleep logo" /></a>
+    
     <nav>
+      <div>
       <a id="rulesBtn" " href=" #" class="rules-btn-nav"></a>
-    <a id="resetMe" class="reset " data-value="">&#x21bb; </a>
-    <a id="puzMe" class="new-puz " data-value="">→ </a>
+      <a id="resetMe" class="reset " data-value="">&#x21bb; </a>
+      <a id="puzMe" class="new-puz " data-value="">→ </a></div>
+    <a href="/" class="logo-nav-link"><img src="assets/logo-white-b10.png"
+        class="logo-nav" alt="spelling bleep logo" /></a>
     <!-- <a id="colorScheme" class="color-scheme ">☀</a> -->
     
     <!-- <button id="demoBtn" class="testing-only demo-btn btn" data-value=""> </button> -->
@@ -70,7 +73,7 @@
   </header>
 
   <main class="bleep-page-layout">
-    <section >
+    <section class="interface">
       <div class="displays">
         <div class="fb-display-wrapper"><div id="feedbackDisplay" class="feedback-display"></div></div>
         <div class="display-input-wrapper">
@@ -100,8 +103,11 @@
       </div>
 
       <div class="wordlist-wrapper">
-        <p class="wordlist-summary"><span id="wordlistTally" class="wordlist-tally" data-value="0">0 words</span></p>
-        <ul id="wordList" class="wordlist">
+        <div id="wordlistSummary" class="wordlist-summary">
+          <span id="wordlistTally" class="wordlist-tally" data-value="0">0 words</span>
+          <span id="wordlistArrow" class="wordlist-arrow-closed"></span>
+        </div>
+        <ul id="wordList" class="wordlist wordlist-mobile-closed">
         
         </ul>
       </div>
