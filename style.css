@@ -49,17 +49,37 @@ details {
 }
 
 nav {
+  position: absolute;
+  top: -100px;
+  width: 100%;
   height: 0;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
   margin: 0;
   padding: 30px 0 50px 0;
-  background: var(--blue0);
+  background-color: transparent;
   border: none;
-  border-bottom: 1px solid var(--blue2);
+}
+
+@media only screen and (min-width: 600px) {
+  nav {
+    position: relative;
+    top: 0;
+    height: 0;
+    margin: 0;
+    padding: 30px 0 50px 0;
+    background-color: var(--blue0);
+    border: none;
+    border-bottom: 1px solid var(--blue2);
+  }
 }
 
 footer {
-  position: absolute;
+  position: relative;
   bottom: calc(5 / 10vh);
+  bottom: 0;
   left: 0;
   right: 0;
   text-align: center;
@@ -70,8 +90,9 @@ footer {
 
 @media only screen and (min-height: 960px) {
   footer {
-    position: absolute;
+    position: relative;
     bottom: 1vh;
+    bottom: 0;
     left: 0;
     right: 0;
     text-align: center;
@@ -92,7 +113,7 @@ footer a:hover {
   border-bottom: 1px solid var(--white2);
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-height: 700px) {
   footer {
     position: absolute;
     bottom: 0;
@@ -106,7 +127,7 @@ footer a:hover {
   flex-flow: column-reverse nowrap;
   max-width: 900px;
   /* min-height: 100vh; */
-  height: auto;
+  /* height: 100vh; */
   margin: 0;
 }
 
@@ -144,15 +165,15 @@ footer a:hover {
 }
 
 .logo-nav {
-  position: absolute;
-  top: 0%;
-
-  right: 0;
-  height: auto;
   max-width: 30px;
-  margin: 25px 45px;
-  padding: 0;
+  margin: 0 15px;
   transition: all 0.1s ease;
+}
+
+@media only screen and (min-width: 600px) {
+  .logo-nav {
+    transition: all 0.1s ease;
+  }
 }
 
 .logo-nav:hover {
@@ -316,7 +337,7 @@ a,
 a:visited {
   text-decoration: none;
   border: none;
-  margin: 0 auto;
+  margin: 0;
   cursor: pointer;
 }
 
@@ -441,13 +462,13 @@ a:focus-visible {
   align-items: center;
   justify-items: center;
   gap: 0/0;
-  max-width: 280px;
+  max-width: 250px;
   margin: 0 auto;
 }
 
 .btn {
-  height: 70px;
-  min-width: 80px;
+  height: 60px;
+  min-width: 70px;
   color: var(--white0);
   background-color: transparent;
   border: 1px solid transparent;
@@ -465,7 +486,21 @@ a:focus-visible {
   color: var(--white0);
   background-color: var(--blue0);
   border: 2px solid var(--white2);
-  margin: -13px 5px;
+  margin: -10px 5px;
+}
+
+@media only screen and (min-width: 600px) {
+  .grid {
+    max-width: 280px;
+  }
+  .btn {
+    height: 70px;
+    min-width: 80px;
+  }
+
+  .letter {
+    margin: -13px 5px;
+  }
 }
 
 .letter:hover {
@@ -497,11 +532,22 @@ a:focus-visible {
 
 .displays {
   position: relative;
-  height: 200px;
+  height: 100px;
   width: 100%;
   border-radius: 0.3rem;
 
-  margin: 30px 0;
+  margin: 10px 0 30px 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .displays {
+    position: relative;
+    height: 200px;
+    width: 100%;
+    border-radius: 0.3rem;
+
+    margin: 30px 0;
+  }
 }
 
 .shuffle-btn,
@@ -578,10 +624,11 @@ summary:focus {
 
 .slider-wrapper {
   display: flex;
-  flex-flow: column;
+  flex-flow: row nowrap;
   align-content: center;
-  padding: 10px 65px;
+  padding: 10px 20px;
   margin: 0;
+  max-width: 400px;
 }
 
 .display-input-wrapper {
@@ -590,6 +637,15 @@ summary:focus {
 }
 
 @media only screen and (min-width: 600px) {
+  .slider-wrapper {
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    padding: 10px 30px;
+    margin: 0;
+    max-width: 400px;
+  }
+
   .display-input-wrapper {
     position: relative;
     max-width: 400px;
@@ -598,14 +654,28 @@ summary:focus {
 
 .input-display {
   font-size: 2rem;
-  height: 4rem;
+  height: 3rem;
   font-weight: 600;
   letter-spacing: 0.2rem;
-  padding: 15px;
+  padding: 5px 0 15px 0;
   position: absolute;
-  top: 40px;
+  top: 20px;
   left: 50%;
   transform: translate(-50%, 0);
+}
+
+@media only screen and (min-width: 600px) {
+  .input-display {
+    font-size: 2rem;
+    height: 4rem;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    padding: 15px;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 }
 
 /* blinking cursor */
@@ -630,66 +700,187 @@ summary:focus {
 }
 
 .wordlist-wrapper {
-  border: 1px solid var(--white2);
-  display: inline-block;
-  height: auto;
-  width: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 15px 5px;
   border-radius: 0.3rem;
 }
 
 .feedback {
-  max-height: 400px;
+  padding: 35px 0 15px 0;
+  margin: 0 auto;
+  background-color: transparent;
+}
+
+.wordlist-summary {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 90vw;
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 0.3rem 0.3rem 0 0;
+  border: 1px solid var(--blue1);
+  border-bottom: none;
+  background-color: var(--blue0);
+  color: var(--blue0);
+  cursor: pointer;
+}
+
+.wordlist-arrow-open::after {
+  content: ' ↑ ';
+}
+
+.wordlist-arrow-closed::after {
+  content: ' ↓ ';
 }
 
 @media only screen and (min-width: 600px) {
   .feedback {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
     border: 1px solid transparent;
-    height: 80vh;
+
+    max-height: 60vh;
+    max-width: 400px;
     padding: 45px 5px 15px 5px;
+    align-self: flex-start;
+
+    margin-top: 50px;
   }
 
   .wordlist-wrapper {
+    display: block;
     border: 1px solid transparent;
-    min-height: 500px;
     margin: 15px auto;
-    padding: 30px 50px;
+    padding: 30px;
     border-radius: 0rem;
-    width: 35vw;
     max-width: 400px;
   }
-}
 
-.wordlist-summary {
-  margin: 5px auto;
-  padding: 5px 15px;
-  border-radius: 0.3rem;
+  .wordlist-summary {
+    border: 1px solid transparent;
+    display: block;
+    width: 200px;
+    margin: 5px 0;
+    padding: 15px 0;
+    border-radius: 0.3rem;
+    box-shadow: none;
+    cursor: default;
+  }
+
+  .wordlist-arrow::after {
+    opacity: 0;
+  }
+
+  .wordlist-arrow-open::after {
+    content: ' ';
+  }
+
+  .wordlist-arrow-closed::after {
+    content: ' ';
+  }
 }
 
 .fadeout-fb,
 .wordlist-summary,
 .player-rank {
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.6;
   letter-spacing: 0.08rem;
   color: var(--yellow2);
 }
 
 .wordlist {
+  border-bottom: 1px solid var(--blue1);
+  border-radius: 0 0 0.3rem 0.3rem;
   line-height: 1.6;
-  max-width: 100%;
-  overflow: scroll;
-  padding: 15px 0;
+  width: 90vw;
+  overflow-y: scroll;
+  height: 0px;
+  margin: 0 auto;
+  transition: left 350ms ease-in-out, right 350ms ease-in-out,
+    padding 100ms ease-in-out, height 350ms ease-in-out,
+    background-color 350ms ease-in-out;
+}
+
+.wordlist-mobile-closed {
+  position: absolute;
+  border: 1px solid var(--blue1);
+  border-top: none;
+  right: 0;
+  left: 0;
+  padding: 0px;
+}
+
+.wordlist-mobile-open {
+  position: absolute;
+  right: 0;
+  left: 0;
+  background-color: var(--blue0);
+
+  border: 1px solid var(--blue1);
+  border-top: none;
+  padding: 15px 15px 15px 0px;
+  height: 50vh;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 8.5px 7px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.062), 0 11.8px 7.4px rgba(0, 0, 0, 0.066),
+    0 7px 10px rgba(0, 0, 0, 0.07);
 }
 
 @media only screen and (min-width: 600px) {
   .wordlist {
+    border-bottom: 1px solid var(--blue1);
+    border-radius: 0 0 0.3rem 0.3rem;
     line-height: 1.6;
+    overflow-y: scroll;
+    height: 0px;
+    transition: left 350ms ease-in-out, right 350ms ease-in-out,
+      padding 100ms ease-in-out, height 350ms ease-in-out,
+      background-color 350ms ease-in-out;
+
+    max-height: 90%;
     max-width: 100%;
-    overflow: scroll;
-    padding: auto;
+    margin: 0 0 0 -15px;
+  }
+
+  .wordlist-mobile-closed {
+    position: relative;
+    right: 0;
+    left: 0;
+    background-color: var(--blue0);
+
+    border: none;
+    border-top: none;
+    padding: 10px 15px 15px 0px;
+    height: auto;
+    box-shadow: none;
+  }
+
+  .wordlist-mobile-open {
+    position: relative;
+    right: 0;
+    left: 0;
+    background-color: var(--blue0);
+
+    border: none;
+    border-top: none;
+    padding: 10px 15px 15px 0px;
+    height: auto;
+    box-shadow: none;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .slider-wrapper::before {
+    content: '';
+  }
+
+  .wordlist-summary::after {
+    content: ' ';
   }
 }
 
@@ -721,8 +912,10 @@ summary:focus {
 
 .feedback-display {
   position: absolute;
-  height: 50px;
+  height: 30px;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .center-letter {
@@ -750,8 +943,14 @@ progress {
 
   background-color: var(--blue0);
   border-radius: 0.6rem;
-  margin: 15px auto;
+  margin: 0px auto;
   transition: all 0.1s ease-in-out;
+}
+
+@media only screen and (min-width: 600px) {
+  progress {
+    margin: 35px auto;
+  }
 }
 
 progress::-webkit-progress-bar {
