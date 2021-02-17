@@ -126,8 +126,6 @@ footer a:hover {
   display: flex;
   flex-flow: column-reverse nowrap;
   max-width: 900px;
-  /* min-height: 100vh; */
-  /* height: 100vh; */
   margin: 0;
 }
 
@@ -757,6 +755,7 @@ summary:focus {
     padding: 30px;
     border-radius: 0rem;
     max-width: 400px;
+    min-height: 500px;
   }
 
   .wordlist-summary {
