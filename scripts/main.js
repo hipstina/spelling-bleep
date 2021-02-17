@@ -2,7 +2,6 @@ console.log(`Stuck? 🐝 Invoke 'hint()' in the console.`)
 /* ----------------  
 ... GLOBAL VARIABLES 
 ------------------*/
-const BODY = document.querySelector('body')
 const feedbackDisplay = document.querySelector('#feedbackDisplay')
 const inputDisplay = document.querySelector('#inputDisplay')
 const letters = document.querySelectorAll('.letter')
@@ -11,13 +10,11 @@ const shuffleBtn = document.querySelector('#shuffleBtn')
 const enterBtn = document.querySelector('#enterBtn')
 const puzMe = document.querySelector('#puzMe')
 const resetMe = document.querySelector('#resetMe')
-const colorScheme = document.querySelector('#colorScheme')
 const centerLetter = document.querySelector('#centerLetter')
 const wordList = document.querySelector('#wordList')
 const wordlistTally = document.querySelector('#wordlistTally')
 const playerRank = document.querySelector('#playerRank')
 const playerScore = document.querySelector('#playerScore')
-const demoBtn = document.querySelector('#demoBtn')
 const wordlistSummary = document.querySelector('#wordlistSummary')
 const wordlistArrow = document.querySelector('#wordlistArrow')
 
@@ -56,6 +53,7 @@ const hint = () => {
 ... PUZ SETUP 
 ------------------*/
 
+// there should be at least 1 pangram and 1 bleep per letter set
 const optimizePuz = () => {
   let puzzle = calcWordlist(puz.init.set)
   let maxScore = calcMaxScore(puzzle)
@@ -107,6 +105,7 @@ const calcAllBleeps = (wordlist) => {
   return allBleeps.length
 }
 
+// the solver
 const calcWordlist = (charSet) => {
   let allWords = [...words, ...bleeps]
   let wordlistSet = []
@@ -145,20 +144,13 @@ const isPangram = (charSet, word) => {
   }
 }
 
-const updatePangram = () => {
-  return puz.pangrams.push(puz.input)
-}
-
 const isBleep = (charSet, word) => {
   if (charSet.indexOf(word) !== -1) {
     return true
   }
 }
 
-const updateBleeps = () => {
-  return puz.bleeps.push(puz.input)
-}
-
+// avoid setting f,g,j,k,q,s,v,w,x, or z as center letter (per nytbee.com stats)
 const calcCenter = () => {
   let index = Math.floor(Math.random() * puz.init.set.length)
   let center = puz.init.set[index]
@@ -181,6 +173,7 @@ const calcCenter = () => {
   }
 }
 
+// puz letter set should not include 'j,q,s,v,x,z' (nytbee.com)
 const newPuzzle = (e) => {
   let newPuz = combos[Math.round(Math.random() * combos.length)]
   if (newPuz.includes('s')) {
@@ -200,6 +193,7 @@ const newPuzzle = (e) => {
     calcCenter()
     optimizePuz()
     clearWordlist(e)
+    clearInput()
     resetScore()
   }
 }
@@ -269,6 +263,7 @@ const deleteLetter = () => {
   }
 }
 
+// return a new randomized order array using Fisher-Yates shuffle
 const shuffleOrder = () => {
   let array = puz.order
   for (let i = array.length - 1; i > 0; i--) {
@@ -279,6 +274,7 @@ const shuffleOrder = () => {
   puz.order = array
   updateLetters()
 }
+
 const validateInput = (e) => {
   if (puz.input.includes(puz.init.center)) {
     if (puz.input.length > 3) {
@@ -345,11 +341,6 @@ const updateFeedback = (str) => {
 /* ----------------  
 ... WORDLIST 
 ------------------*/
-
-const clearBonusWords = () => {
-  puz.bleeps = []
-  puz.pangrams = []
-}
 
 const clearWordlist = () => {
   puz.wordlist = []
@@ -444,7 +435,7 @@ const calcWordScore = (charLength, bonus) => {
 const updateRank = () => {
   let num = puz.maxScore < 360 ? Math.floor(puz.maxScore * 0.3) : 170
   let meter = Math.round((puz.score / Math.floor(num * 0.69)) * 100)
-
+  console.log('meter', puz.score, num, puz.maxScore)
   switch (true) {
     case puz.score === 0:
       puz.rank = `Beginner 0%`
@@ -560,18 +551,6 @@ const displayFeedback = () => {
   }, 2300)
 }
 
-const setColScheme = () => {
-  if (colorScheme.innerText === '☀') {
-    colorScheme.innerText = '☾'
-    BODY.style.backgroundColor = '#5555ea'
-    BODY.style.color = '#dedef7'
-  } else {
-    colorScheme.innerText = '☀'
-    BODY.style.backgroundColor = '#edf094'
-    BODY.style.color = '#232130'
-  }
-}
-
 const toggleWordlist = () => {
   wordList.classList.toggle('wordlist-mobile-closed')
   wordList.classList.toggle('wordlist-mobile-open')
@@ -580,35 +559,6 @@ const toggleWordlist = () => {
 }
 
 /* ----------------  
-... DEMO (TESTING)
-------------------*/
-// const fillPuzState = (e) => {
-//   puz.wordlist = [
-//     'Blob',
-//     'Block',
-//     'Book',
-//     'Cobra',
-//     'Cock',
-//     'Cocoa',
-//     'Collar',
-//     'Cool',
-//     'Cork',
-//     'Corral',
-//     'Croak',
-//     'Koala',
-//     'Labor',
-//     'Local',
-//     'Look',
-//     'Roar'
-//   ]
-//   puz.score = 59
-//   puz.rank = `Nice ${puz.score}`
-//   playerRank.innerText = `${puz.rank}`
-//   displayWordlist(e)
-//   updateWordTally()
-//   displayScore()
-// }
-/* ----------------  
 ... EVENT LISTENERS 
 ------------------*/
 
@@ -616,8 +566,8 @@ letters.forEach((letter) => letter.addEventListener('click', updateInput))
 deleteBtn.addEventListener('click', deleteLetter)
 shuffleBtn.addEventListener('click', shuffleOrder)
 enterBtn.addEventListener('click', validateInput)
-
 puzMe.addEventListener('click', newPuzzle)
 resetMe.addEventListener('click', resetPuz)
 wordlistSummary.addEventListener('click', toggleWordlist)
 window.addEventListener('load', optimizePuz)
+window.addEventListener('load', newPuzzle)
